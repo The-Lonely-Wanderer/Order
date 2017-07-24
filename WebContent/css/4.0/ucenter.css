@@ -1,0 +1,459 @@
+/* CSS Document */
+
+
+/*2015-07-29 nana*/
+
+.a-wh:hover {
+	color: #fff;
+}
+
+#u-userNav {
+	width: 136px;
+	border: 1px solid #f0f1f2;
+	background: #fff;
+}
+
+#u-userNav dt a {
+	line-height: 50px;
+	padding-left: 30px;
+}
+
+#u-userNav dt a:hover,
+#u-userNav dt a.active {
+	background: #ff9500;
+	color: #fff;
+}
+
+#u-userNav .ucenter-li {
+	width: 100px;
+	height: 1px;
+	margin-left: 18px;
+	background: #f0f1f2;
+}
+
+#u-userNav .ucenter-moudle a {
+	height: 50px;
+	line-height: 50px;
+	padding-left: 30px;
+}
+
+#u-userNav .ucenter-moudle a:hover,
+#u-userNav .ucenter-moudle a.active {
+	background: #ff9500;
+	color: #fff;
+}
+
+.moudle-Vip {
+	border: 1px solid #f0f1f2;
+}
+
+.moudle-Vip-al {
+	height: 48px;
+	background: url(../../images/web/4.0/vip-al-bg.jpg) no-repeat center;
+}
+
+.moudle-Vip-mess {
+	line-height: 48px;
+	margin-left: 40px;
+	padding-left: 30px;
+	background: url(../../images/web/4.0/vip-icon.png) no-repeat left top;
+}
+
+.moudle-Vip-down {
+	width: 133px;
+	height: 36px;
+	background: url(../../images/web/4.0/vip-down-icon.png) no-repeat center;
+	right: 76px;
+	top: -36px;
+}
+
+.moudle-Vip-down a {
+	padding-left: 12px;
+	line-height: 26px;
+}
+
+.moudle-Vip-down a:hover {
+	color: #fff;
+}
+
+.moudle-Vip-no {
+	background: #afb1b2;
+}
+
+.moudle-Vip-no .moudle-Vip-mess {
+	background: url(../../images/web/4.0/vip-icon.png) no-repeat left bottom;
+}
+
+.moudle-Vip-ewm {
+	right: 40px;
+	top: -40px;
+}
+
+.moudle-Vip-open {
+	margin-right: 30px;
+	background: url(../../images/web/4.0/row-right-wh.png) no-repeat right;
+	line-height: 48px;
+	padding-right: 15px;
+}
+
+.moudle-Vip-query {
+	margin-right: 158px;
+	background: url(../../images/web/4.0/row-down-wh.png) no-repeat right;
+}
+
+.moudle-Vip-act {
+	margin-right: 30px;
+	background: url(../../images/web/4.0/row-down-wh.png) no-repeat right;
+}
+
+.moudle-Vip-box {
+	padding: 12px 40px;
+}
+
+.moudle-Vip-box .cardNum {
+	width: 600px;
+	padding: 12px 30px;
+	border-radius: 5px 0 0 5px;
+	line-height: 20px;
+	height: 20px;
+}
+
+.moudle-Vip-box .activationBtn {
+	height: 44px;
+	line-height: 44px;
+	border-radius: 0 5px 5px 0;
+	border: none;
+}
+
+.input-tips {
+	background: url(../../images/web/4.0/input-wrong.png) no-repeat left;
+	padding-left: 20px;
+	color: #ed6b6b;
+}
+
+.moudle-Vip-box .input-tips {
+	line-height: 44px;
+	right: 145px;
+	top: 12px;
+}
+
+
+/*u-orderList*/
+
+.u-orderList {
+	border: none;
+}
+
+.u-order-dl dt {
+	height: 38px;
+	line-height: 38px;
+	background: #f0f1f2;
+	border: 1px solid #f0f1f2;
+	bottom: 15px;
+	margin-bottom: 12px;
+}
+
+.u-order-th-shop {
+	width: 245px;
+}
+
+.u-order-dl .u-order-Li {
+	border: 1px solid #f0f1f2;
+	background: #fff;
+	margin-bottom: 12px;
+	padding-top: 16px;
+}
+
+.u-order-tb-shop {
+	padding: 0 20px;
+	width: 205px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.gorgan {
+	color: #f60;
+}
+
+.u-order-dl .row-down-icon {
+	width: 5px;
+	height: 3px;
+	background: url(../../images/web/4.0/row-down-icon.gif) no-repeat center;
+}
+
+.u-order-dl .selOrder {
+	border: 1px solid #f0f1f2;
+	width: 98px;
+	top: 39px;
+	left: 20px;
+	text-align: left;
+}
+
+.u-order-dl .selOrder a {
+	height: 26px;
+	line-height: 26px;
+	background: #fff;
+	padding-left: 12px;
+}
+
+.u-order-dl .selOrder a:hover {
+	background: #ff9500;
+	color: #fff;
+}
+
+.u-order-Li .gorgan {
+	color: #ff9500;
+}
+
+.u-order-Li .u-order-tb-shop {
+	color: #2e2e2e;
+}
+
+.gafb {
+	color: #afb1b2;
+}
+
+.u-order-details {
+	background: #f0f1f2;
+}
+
+.u-order-process {
+	height: 34px;
+	background: url(../../images/web/4.0/u-order-process.png) no-repeat center;
+	padding: 75px 61px;
+}
+
+.u-order-process li {
+	width: 34px;
+	height: 34px;
+	line-height: 34px;
+	float: left;
+	background: url(../../images/web/4.0/u-order-process-gay.png) no-repeat center;
+	margin-left: 122px;
+}
+
+.u-order-process li.first {
+	margin-left: 0;
+}
+
+.u-order-process li.active {
+	background: url(../../images/web/4.0/u-order-process-organ.png) no-repeat center;
+}
+
+.u-order-process li .tit {
+	bottom: 34px;
+	white-space: nowrap;
+	left: -8px;
+	top: -33px;
+}
+
+.u-order-process li .time {
+	top: 34px;
+	white-space: nowrap;
+	left: -4px;
+	color: #afb1b2;
+}
+
+.u-order-process li.active .organ-bg {
+	width: 132px;
+	height: 6px;
+	background: #ff9500;
+	top: 13px;
+	right: 29px;
+}
+
+.u-order-process li.active .tit {
+	color: #ff9500;
+}
+
+.u-order-baseInfo {
+	line-height: 38px;
+	background: #fff;
+}
+
+.u-order-orderCode {
+	background: #fafafa;
+	border-bottom: 1px solid #f0f1f2;
+	line-height: 38px;
+}
+
+.mr160 {
+	margin-right: 160px;
+}
+
+.w340 {
+	width: 340px;
+}
+
+.u-order-food-details {
+	background: #fff;
+}
+
+.u-order-food-details .w70 {
+	width: 50px;
+}
+
+.u-order-food-details-li {
+	margin: 0 20px;
+	line-height: 38px;
+	border-bottom: 1px dashed #f0f1f2;
+}
+
+.u-order-food-details-liLast {
+	border-bottom: none;
+}
+
+.u-order-price-box {
+	border-top: 1px solid #f0f1f2;
+	padding: 10px 20px 10px 30px;
+}
+
+.u-order-price-box .paymentBtnbox {
+	padding-left: 30px;
+}
+
+.u-order-price-box #submitBtn {
+	width: 128px;
+	padding: 0;
+	text-align: center;
+	font-size: 16px;
+	background: #ff9500;
+	border-color: #ff9500;
+}
+
+.u-order-price-tol {
+	line-height: 40px;
+	border-top: 1px solid #f0f1f2;
+	font-weight: bold;
+}
+
+.u-order-price-tol .gorgan {
+	color: #ff9500;
+}
+
+.u-order-price-tol .p_all_ {
+	margin-left: 20px;
+}
+
+.u-order-payOnline {
+	color: #f60;
+	padding-right: 24px;
+	background: url(../../images/web/4.0/row-right-icon.png) no-repeat right;
+	padding-left: 42px;
+}
+
+
+/*order-track*/
+
+#order-track {
+	width: 822px;
+	padding: 0px;
+	border: none;
+	background: none;
+}
+
+#track-order-list {
+	padding: 0;
+}
+
+#track-order-list li {
+	float: none;
+	border: 1px solid #f0f1f2;
+	margin: 0px;
+	margin-bottom: 16px;
+	height: 58px;
+	line-height: 58px;
+	background: #fff;
+}
+
+#track-order-list li:hover,
+#track-order-list li.active {
+	border-color: #d0d6d9;
+}
+
+#track-order-list li .supname {
+	padding-left: 50px;
+	color: #2e2e2e;
+	background: url(../../images/web/4.0/shop-icon.png) no-repeat 20px center;
+	margin-right: 10px;
+}
+
+#track-order-list li .shop-status {
+	width: 78px;
+	height: 30px;
+	line-height: 30px;
+	color: #fff;
+	margin-top: 28px;
+	background: url(../../images/web/4.0/shop-status-bg.png) no-repeat center;
+}
+
+#track-order-list li .shop-time {
+	padding: 0 25px 0 30px;
+	background: url(../../images/web/4.0/time-icon.png) no-repeat left;
+}
+
+#map_canvas {
+	width: 820px;
+	border: 1px solid #f0f1f2;
+	margin-bottom: 16px;
+}
+
+.pagaWarp {
+	height: 38px;
+	margin-top: 0;
+}
+
+.pages {
+	padding: 0;
+	margin-top: 4px;
+	height: 36px;
+}
+
+.pages-left {
+	border: 1px solid #f0f1f2;
+}
+
+.pages .pages-a {
+	width: 36px;
+	height: 36px;
+	text-align: center;
+	color: #afb1b2;
+	line-height: 36px;
+	border: none;
+	border-right: 1px solid #f0f1f2;
+	display: block;
+	font-size: 12px;
+}
+
+.pages .pages-a:hover,
+.pages .pages-a-act {
+	background: #ff9500;
+	color: #fff;
+}
+
+.pages .pages-a-last {
+	border-right: none;
+}
+
+.w218 {
+	width: 218px;
+}
+
+.u-order-baseInfo .w304,
+.u-order-baseInfo .w522 {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 304px;
+}
+
+.u-order-baseInfo .w522 {
+	width: 522px;
+}
+
+.vipUser {
+	position: absolute;
+	line-height: 44px;
+	right: 145px;
+	top: 12px;
+}
