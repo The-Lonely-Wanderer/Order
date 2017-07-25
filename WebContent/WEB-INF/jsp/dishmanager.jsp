@@ -30,29 +30,29 @@
 						closable="false" closed="true" title="添加菜品信息"
 						style="width: 400px; background: #fff; overflow: hidden;">
 						<form id="tj-addfoodform" action="addfood.action" method="post" enctype="multipart/form-data">
-<!-- 							<div class="w-index"> -->
-<!-- 								<label class="w-label-1">菜品名：</label> <input class="w-itext" -->
-<!-- 									type="text" id="foodname" name="foodname" -->
-<!-- 									style="width: 200px" value="" placeholder="请输入菜品名" /> -->
-<!-- 							</div> -->
-<!-- 							<div class="w-index"> -->
-<!-- 								<label class="w-label-1">菜品种类：</label> <select id="food_id" -->
-<!-- 									name="food_id" style="width: 200px"></select> -->
-<!-- 							</div> -->
+							<div class="w-index">
+								<label class="w-label-1">菜品名：</label> <input class="w-itext"
+									type="text" id="foodname" name="foodname"
+									style="width: 200px" value="" placeholder="请输入菜品名" />
+							</div>
+							<div class="w-index">
+								<label class="w-label-1">菜品种类：</label> <select id="food_id"
+									name="food_id" style="width: 200px"></select>
+							</div>
 							<div class="w-index">
 								<label class="w-label-1">图片：</label> <input type="file"
 									id="photo" name="photo" style="width: 200px">
 							</div>
-<!-- 							<div class="w-index"> -->
-<!-- 								<label class="w-label-1">菜品信息：</label> <input type="text" -->
-<!-- 									id="food_message" name="food_message" style="width: 200px" -->
-<!-- 									placeholder="请输入菜品信息"> -->
-<!-- 							</div> -->
-<!-- 							<div class="w-index"> -->
-<!-- 								<label class="w-label-1">单价：</label> <input type="text" -->
-<!-- 									id="food_price" name="food_price" style="width: 200px" -->
-<!-- 									placeholder="请输入单价"> -->
-<!-- 							</div> -->
+							<div class="w-index">
+								<label class="w-label-1">菜品信息：</label> <input type="text"
+									id="food_message" name="foodinfo" style="width: 200px"
+									placeholder="请输入菜品信息">
+							</div>
+							<div class="w-index">
+								<label class="w-label-1">单价：</label> <input type="text"
+									id="food_price" name="price" style="width: 200px"
+									placeholder="请输入单价">
+							</div>
 							<div class="w-index"
 								style="text-align: center; margin-top: 30px;">
 								<input id="addfoodsub" class="w-but1" type="submit" value="提交" />
@@ -126,7 +126,7 @@
 								placeholder="请输入单价">
 						</div>
 						<div class="w-index" style="text-align: center; margin-top: 30px;">
-							<input id="xg-but" class="w-but1" type="button" value="提交" />
+							<input id="xg-but" class="w-but1" type="submit" value="提交" />
 							 <input class="w-but1" type="button" onclick="d_close()" value="返回" />
 						</div>
 					</form>
@@ -178,21 +178,21 @@
 						|| $("#food_price").val().length == 0) {
 					alert("输入框不能为空！  ");
 				} else {
-					$.ajax({
-						type:"POST",
-						url:"addfood.action",
-						data:{
-// 							foodinfo:,
-// 							foodname:,
-							photo:$("#photo").val()
-// 							price:,
-// 							catelogId:,
-						},
-						success:function(){
+// 					$.ajax({
+// 						type:"POST",
+// 						url:"addfood.action",
+// 						data:{
+// // 							foodinfo:,
+// // 							foodname:,
+// 							photo:$("#photo").val()
+// // 							price:,
+// // 							catelogId:,
+// 						},
+// 						success:function(){
 							
 							
-						}
-					});
+// 						}
+// 					});
 				}
 			});
 

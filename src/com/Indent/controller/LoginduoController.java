@@ -4,31 +4,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
-import org.springframework.web.servlet.support.RequestContext;
 import com.Indent.vo.T_user;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-
-
-import sun.security.action.PutAllAction;
 
 import com.Indent.service.AdminService;
 import com.Indent.service.CatelogService;
@@ -54,7 +44,8 @@ import com.Indent.vo.T_order;
 @Controller
 // @RequestMapping(value="/hello")
 public class LoginduoController {
-
+	@Resource
+	private Translate tr;
 	@Resource
 	private UserService us;
 	@Resource
@@ -75,6 +66,10 @@ public class LoginduoController {
 	private JSONObject jsonObject;
 	@Resource
 	private FoodService footservice;
+	@Resource
+	private T_food m_user;
+	@Resource
+	private ShoppService shoppService;
 
 	// 柯蒙蒙
 	// 登录
@@ -332,33 +327,10 @@ public class LoginduoController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+
 			}
 		}
 	}
-
-
-
-	// 菜品删除
-	@RequestMapping(value = "/delefood.action")
-	public void delefood(String id, HttpServletRequest request, HttpServletResponse response) {
-		int flage = foodService.deleteByPrimaryKey(id);
-		if (flage > 0) {
-			jsonObject.put("flage", flage);
-			jsonArray.add(jsonObject);
-			try {
-				PrintWriter out = response.getWriter();
-				out.println(jsonArray);
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-	}
-
-
-
 
 	// 菜品管理
 	@Resource
@@ -386,29 +358,62 @@ public class LoginduoController {
 		}
 		return modelAndView;
 	}
-	// 菜品添加MultipartFile photo,,T_food t_food
-	@RequestMapping(value="/addfood.action")
-	public ModelAndView addfood(@RequestParam(value="photo", required = false) MultipartFile photo,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
-	request.setCharacterEncoding("UTF-8");
-	response.setCharacterEncoding("UTF-8");
-	
-	try {
-		String path=request.getSession(true).getServletContext().getRealPath("images/foodimage");
-		String name=photo.getOriginalFilename();
-		File file=new File(path,name);
-		photo.transferTo(file);
-		String foodname=request.getParameter("foodname");
-		System.out.println("foodname-->"+foodname+" path-->"+path+" name-->"+name+" file-->"+file);
-		
-	} catch (IllegalStateException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+
+	// 菜品删除
+	@RequestMapping(value = "/delefood.action")
+	public void delefood(String id, HttpServletRequest request, HttpServletResponse response) {
+		int flage = foodService.deleteByPrimaryKey(id);
+		if (flage > 0) {
+			jsonObject.put("flage", flage);
+			jsonArray.add(jsonObject);
+			try {
+				PrintWriter out = response.getWriter();
+				out.println(jsonArray);
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
+
+		}
+
 	}
-	
-		return new ModelAndView("dishmanager");
+
+	@Resource
+	T_food t_food;
+
+	// 上传图片MultipartFile(value = "photo", required = false) photo,,T_food t_food
+	@RequestMapping(value = "/addfood.action")
+	public ModelAndView addfood(@RequestParam MultipartFile photo, HttpServletRequest request, HttpServletResponse response)
+			throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		ModelAndView modelAndView=new ModelAndView();
+		try {
+			String path = request.getSession(true).getServletContext().getRealPath("images/foodimage");
+			String name = photo.getOriginalFilename();
+			File file = new File(path, name);
+			photo.transferTo(file);
+			t_food.setId(tr.getUUID());
+			t_food.setFoodname(request.getParameter("foodname"));
+			t_food.setFoodinfo(request.getParameter("foodinfo"));
+			t_food.setPhoto(name);
+			t_food.setPrice(Double.parseDouble(request.getParameter("price")));
+			int i=foodService.insertSelective(t_food);
+			if(i>0){
+				List<T_food> foodlist=foodService.selectByAll();
+				modelAndView.setViewName("dishmanager");
+				modelAndView.addObject("foodlist",foodlist);
+			}  
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
 	}
 
 	// 留言管理
@@ -527,217 +532,4 @@ public class LoginduoController {
 
 		return modelAndView;
 	}
-
-	// 冯雄飞
-	@Resource
-	private Translate tr;
-
-	public UserService getUs() {
-		return us;
-	}
-
-	public void setUs(UserService us) {
-		this.us = us;
-	}
-
-	public Translate getTr() {
-		return tr;
-	}
-
-	public void setTr(Translate tr) {
-		this.tr = tr;
-	}
-
-	// 注册
-	@RequestMapping("/register.action")
-	public ModelAndView userregist(String password2, T_user user, Model model) {
-		String username = user.getUsername();
-		String tel = user.getTel();
-		String password = user.getPassword();
-		String repassword = password2;
-		System.out.println(tel);
-		ModelAndView mav = new ModelAndView();
-		if (username != null && password != "" && password.equals(repassword)) {
-			try {
-				user.setId(tr.getUUID());
-				user.setCreateTime(new Date());
-				user.setPassword(tr.getMD5(password));
-				user.setTel(tel);
-				user.setUsername(username);
-				model.addAttribute("user", user);
-				int a = us.usserregist(user);
-				if (a > 0) {
-					mav.setViewName("login");
-				} else {
-					mav.setViewName("register");
-				}
-			} catch (UnsupportedEncodingException e) {
-
-				e.printStackTrace();
-			}
-		}
-		return mav;
-	}
-
-		//跳转用户注册页面	
-		@RequestMapping("userregist.action")
-		public ModelAndView userregist(HttpServletRequest request, HttpServletResponse response) {
-			return new ModelAndView("register");
-		}
-		//跳转用户登录页面
-		@RequestMapping("userlogin1.action")
-		public ModelAndView userlogin1(HttpServletRequest request, HttpServletResponse response) {
-			return new ModelAndView("login");
-		}
-		//跳转到用户基本资料页面
-		@RequestMapping("userbiao.action")
-		public ModelAndView userbiao(HttpServletRequest request, HttpServletResponse response) {
-			return new ModelAndView("UserBiao");
-		}
-				
-			//跳转用户点评页面
-					@RequestMapping("mymessage.action")
-					public ModelAndView mymessage(HttpServletRequest request, HttpServletResponse response) {
-						return new ModelAndView("mymessage");
-					}
-
-
-	// 登录
-
-	// 登录
-	@RequestMapping("/userlogin.action")
-	public String userlogin(@ModelAttribute("user") T_user t_user, Model model, HttpServletRequest request,
-			HttpServletResponse response) {
-		t_user.setLoginTime(new Date());
-		try {
-			t_user.setPassword(tr.getMD5(t_user.getPassword()));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-
-		if (null == t_user.getUsername() || "".equals(t_user.getUsername()) || null == t_user.getPassword()
-				|| "".equals(t_user.getPassword())) {
-
-		} else {
-			t_user = us.userlogin(t_user);
-			if (t_user != null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("t_user", t_user);
-				model.addAttribute("t_user", t_user);
-				return "UserBiao";
-			} else {
-				return "login";
-			}
-		}
-		return "login";
-
-	}
-	// 修改个人信息
-
-	@RequestMapping("/updateuser.action")
-	public String updateuser(HttpServletRequest request, HttpServletResponse response, Model model)
-			throws UnsupportedEncodingException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		t_user.setUsername(request.getParameter("username"));
-		t_user.setRealname(request.getParameter("realname"));
-		t_user.setSex(request.getParameter("sex"));
-		t_user.setId(request.getParameter("id"));
-		t_user.setAddress(request.getParameter("address"));
-		String password = request.getParameter("password");
-		t_user.setPassword(tr.getMD5(password));
-		System.out.println(t_user);
-		if ((t_user.getUsername()) == null || "".equals(t_user.getUsername())) {
-		} else {
-			Boolean b = us.updateuser(t_user);
-			System.out.println(b);
-			t_user = us.true_updateuser(t_user);
-			if (b) {
-				String message = "修改信息成功";
-				model.addAttribute("t_user", t_user);
-				model.addAttribute("message", message);
-				return "UserBiao";
-			} else {
-				String message = "修改信息失败,请重新修改！";
-				model.addAttribute("t_user", t_user);
-				model.addAttribute("message", message);
-				return "UserBiao";
-			}
-		}
-		return "UserBiao";
-	}
-
-	// 异步刷新用户名
-	@RequestMapping("/testusername.action")
-	public void testusername(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		String username = request.getParameter("username");
-		System.out.println(username);
-		t_user = us.testusername(username);
-		String message = null;
-		if (t_user != null) {
-			message = "账号已注册，请登录";
-		} else {
-			message = "账号可以使用";
-		}
-		jsonObject.put("message", message);
-		jsonArray.add(jsonObject);
-
-		// 获得输出流
-		PrintWriter out = response.getWriter();
-		// 通过 out 对象将 jsonArray 传到前端页面
-		out.println(jsonArray);
-		out.close();
-	}
-
-	// 异步刷手机号
-	@RequestMapping("/testtel.action")
-	public void testtel(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		String tel = request.getParameter("tel");
-		t_user = us.testtel(tel);
-		String message = null;
-		if (t_user != null) {
-			message = "手机号已注册，请登录";
-		} else {
-			message = "手机号可以使用";
-		}
-		jsonObject.put("message", message);
-		jsonArray.add(jsonObject);
-
-		// 获得输出流
-		PrintWriter out = response.getWriter();
-		// 通过 out 对象将 jsonArray 传到前端页面
-		out.println(jsonArray);
-		out.close();
-	}
-
-	// 异步刷新查看密码输入是否正确
-	@RequestMapping("/testpassword.action")
-	public void testpassword(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-
-		String tel = request.getParameter("tel");
-		String password = tr.getMD5(request.getParameter("password"));
-
-		t_user = us.testpassword(tel, password);
-		String message = null;
-		if (t_user != null) {
-			message = "密码正确";
-		} else {
-			message = "原密码错误";
-		}
-		jsonObject.put("message", message);
-		jsonArray.add(jsonObject);
-
-		// 获得输出流
-		PrintWriter out = response.getWriter();
-		// 通过 out 对象将 jsonArray 传到前端页面
-		out.println(jsonArray);
-		out.close();
-	}
-
 }
