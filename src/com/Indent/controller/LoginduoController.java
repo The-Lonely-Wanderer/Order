@@ -548,14 +548,6 @@ public class LoginduoController {
 		this.tr = tr;
 	}
 
-
-
-	// 跳转用户订单页面
-	@RequestMapping("myorder.action")
-	public ModelAndView myorder(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("myorder");
-	}
-
 	// 注册
 	@RequestMapping("/register.action")
 	public ModelAndView userregist(String password2, T_user user, Model model) {
