@@ -54,4 +54,6 @@ public interface T_orderMapper {
     int updateByPrimaryKey(T_order record);
 
 	List<T_order> selectByAll();//更改成id查询
+
+	List<T_order> selectmyorder(String id);
 }

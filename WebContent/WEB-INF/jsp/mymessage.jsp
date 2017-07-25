@@ -48,7 +48,7 @@
 						<li><a href="myorder.action" title="">我的订单</a></li>
 						<li><a href="userbiao.action" title="">个人资料</a></li>
 						<li><a href="mymessage.action" title="">我的点评</a></li>
-						<li><a href="loginoff.action" title="">退出</a></li>
+						<li><a href="/j_spring_security_logout" title="">退出</a></li>
 					</ul>
 				</div>
 				<a> <span class="vm f14">订单监控</span>
@@ -100,85 +100,28 @@
 
 							</b>
 						</p>
-						<div class='u-baseInfo'>
-							<h2 class='moudleH2'>基本资料</h2>
-							<div class='u-base-msn'>
-								<!--基本资料-->
-								<div class="u-baseAllInfo clearfix">
-
-									<form class="fromMiddle u-baseTxtInfo"
-										action="updateuser.action" method="post" id="updateuserform">
-
-										<ul class='u-base-msnList'>
-										<li>
-											<input id="userid" name="id" value="${t_user.id}" style="display: none"></input>
-											</li>
-											<li><label>手机：</label> <input type="text"
-												value="${t_user.tel}" id="tel" name="tel"
-												readonly="readonly" />
-												<span id="telspan"></span>
-												</li>
-											<li><label>昵称：</label> <input value="${t_user.username}"
-												type="text" maxlength="32" id="username" name="username"
-												readonly="readonly" /></li>
-											<li><label>真实姓名</label> <input
-												value="${t_user.realname}" type="text" id="realname"
-												name="realname" readonly="readonly" /></li>
-											<li><label>性别：</label> <input value="${t_user.sex}"
-												type="text" id="sex" name="sex" readonly="readonly" /></li>
-											<li><label>密码：</label> <input value="${t_user.password}"
-												type="password" id="password" name="password"
-												readonly="readonly" /></li>
-												<li><span>${message}</span></li>
-											<li><input type="button" value="修改信息" id="updatebutton" />
-											<input type="button" value="提交" id="updatebutton1"
-												style="display: none" />											
-											</li>																						
-										</ul>
-								</div>
-								</form>
-								<!--修改密码弹出窗口-->
-								<form action="updatepassword.action" method="post"
-									id="updatepasswordform"
-									style="display: none; border: 1px solid red;">
-									<div class="u-base-bindPhone" id="updatepwd">
-										<h2 class='u-h2'>
-											修改密码<span class='u-close'></span>
-										</h2>
-										<ul class='u-base-msnList fromMiddle'>
-
-											<li><label>当前密码：</label> <input type="password"
-												id="oldpwd" name="oldpwd" index='0' /> <span
-												id="passwordspan"></span>
-												<p class='tip'></p></li>
-											<li><label>新密码：</label> <input type="password"
-												type="password" name="pwdinput" id="pwdinput" index='1' />
-												<p class='tip' id="pwddiv"></p></li>
-											<li><label>确认密码：</label> <input type="password"
-												type="password" name="pwd2input" id="pwd2input" index='2' />
-												<p class='tip' id="pwd2div"></p></li>
-											<li><input type="button" value="提交" id="addnewpassword"">
-											</li>
-										</ul>
-
-									</div>
-								</form>
-							</div>
-
-							<!--保存的配送地址-->
-							<div class="u-index-moudleWarp">
-								<h2 class="moudleH2 clearfix">
-									配送地址<span class="u-index-txtTip"></span>
-								</h2>
-								<div class="tableData" id="addr-list">
-									<div class="loading">
-										<input type="text" value="${t_user.address}" />
-										<!-- <input
-											type="button"
-											style="width: 30px; height: 30px; line-height: 30px; font-size: 2em; cursor: pointer;"
-											value="+" id="add"> -->
-									</div>
-								</div>
+						<!--订单管理-->
+						<div class='u-comment'>
+							<h2 class="moudleH2">我的点评</h2>
+							<div class='tableData' id="user_dianpinglist">
+								<table class="tableStye">
+									<thead>
+										<tr>
+											<th class='first'>订单编号</th>
+											<th>菜品</th>
+											<th>下单时间</th>
+											<th>评价</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td class='first'><a href="#">dwb131125-1553581806</a></td>
+											<td><a href="#">快客便利店</a></td>
+											<td>1013-11-21 15:21:21</td>
+											<td><a href="#">立即点评</a></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 
 						</div>
@@ -283,76 +226,4 @@
 					</div>
 				</div>
 </body>
-
-<script type="text/javascript">
-	$("#updatebutton").click(function() {
-		document.getElementById("tel").style.backgroundColor = "red";
-		document.getElementById("username").style.backgroundColor = "red";
-		document.getElementById("sex").style.backgroundColor = "red";
-		document.getElementById("password").style.backgroundColor = "red";
-		document.getElementById("realname").style.backgroundColor = "red";
-		document.getElementById("tel").readOnly = false;
-		document.getElementById("username").readOnly = false;
-		document.getElementById("sex").readOnly = false;
-		$("#updatebutton1").css("display", "block")	
-		$("#updatebutton").css("display", "none")
-		$("#password").click(function() {
-			$("#updatepasswordform").css("display", "block")
-		});
-		document.getElementById("realname").readOnly = false;
-	});
-
-	$("#oldpwd").blur(function() {
-		$.ajax({
-			// 发送请求的方式 get post
-			type : "post",
-			// 目标资源位置
-			url : "testpassword.action",
-			// 默认值: true。默认设置下，所有请求均为异步请求。如果需要发送同步请求，请将此选项设置为
-			// false。
-			async : true,
-			// 需要发送到服务器的数据
-			// 请求成功后的回调函数。 data 为服务器返回的数据
-			data : {
-				tel : $("#tel").val(),
-
-				password : $("#oldpwd").val()
-			},
-			success : function(message) {
-				// 将数据转换成json对象
-				var json = jQuery.parseJSON(message);
-				// 从json对象中获取对应的参数
-				var messages = json[0].message;
-				// 在 usernamespan 标签中添加 font 标签
-				$("#passwordspan").show();
-				$("#passwordspan").html(messages);
-			},
-			error : function(data) {
-				alert('出错了');
-			}
-		});
-
-	});
-	$("#addnewpassword").click(
-			function() {
-				if ($("#oldpwd").val().length == 0
-						| $("#pwdinput").val().length == 0
-						| $("#pwd2input").val().length == 0) {
-					alert("参数不能为空");
-				} else if ($("#pwdinput").val() != $("#pwd2input").val()) {
-					alert("两次密码不一致")
-				} else {
-
-					 var value=document.getElementById("pwdinput").value;
-					    document.getElementById("password").value=value;					
-					$("#updatepasswordform").css("display", "none")									
-				}
-			});
-	$("#updatebutton1").click(function() {
-		$("#updateuserform").submit();
-
-	});
-</script>
-
-
 </html>

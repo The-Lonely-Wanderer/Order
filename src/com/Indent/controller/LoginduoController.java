@@ -636,13 +636,8 @@ public class LoginduoController {
 		public ModelAndView userbiao(HttpServletRequest request, HttpServletResponse response) {
 			return new ModelAndView("UserBiao");
 		}
-		
-		//跳转用户订单页面
-			@RequestMapping("myorder.action")
-			public ModelAndView myorder(HttpServletRequest request, HttpServletResponse response) {
-				return new ModelAndView("myorder");
-			}
-			//跳转用户订单页面
+				
+			//跳转用户点评页面
 					@RequestMapping("mymessage.action")
 					public ModelAndView mymessage(HttpServletRequest request, HttpServletResponse response) {
 						return new ModelAndView("mymessage");
