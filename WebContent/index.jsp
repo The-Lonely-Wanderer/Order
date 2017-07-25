@@ -97,6 +97,7 @@ body, html {
 
 				<!--右侧未登录状态-->
 				<div class="noLogin clearfix">
+				${t_user.username}
 					<a href="userregist.action" rel="nofollow" onClick="_gaq.push(['_trackEvent', 'dwb','register']);" title=""
 						class="btnOrg40">用户注册</a>
 					<a href="adminlogin.action" rel="nofollow" onClick="_gaq.push(['_trackEvent', 'dwb','register']);" title=""
