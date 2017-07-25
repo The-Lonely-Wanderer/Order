@@ -396,7 +396,6 @@ public class LoginduoController {
 			throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
 		ModelAndView modelAndView=new ModelAndView();
 		try {
 			String path = request.getSession(true).getServletContext().getRealPath("images/foodimage");
