@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.Indent.service.FoodService;
 import com.Indent.service.ShoppService;
 import com.Indent.service.UserService;
+import com.Indent.vo.T_admin;
 import com.Indent.vo.T_food;
 import com.Indent.vo.T_user;
 import com.alibaba.fastjson.JSONArray;
@@ -52,7 +53,7 @@ public class OrderController {
 	public ModelAndView findGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		
+
 		String id = request.getParameter("i_id");
 		// System.out.println("搜索框"+id);
 		List<T_food> user = footservice.getUserByName(id);
@@ -64,7 +65,7 @@ public class OrderController {
 		PrintWriter out = response.getWriter();
 		out.println(jsonArray);
 		out.close();
-			
+
 		return null;
 	}
 
@@ -82,34 +83,34 @@ public class OrderController {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
-		t_user =(T_user) session.getAttribute("t_user");
-		System.out.println(t_user+"1111111111111");
-//		String u = t_user.getUsername();
-		if(t_user!=null){
-		String id = request.getParameter("id");
+		t_user = (T_user) session.getAttribute("t_user");
+		System.out.println(t_user + "1111111111111");
+		// String u = t_user.getUsername();
+		if (t_user != null) {
+			String id = request.getParameter("id");
 
-		T_food m_Food = footservice.getOneByName(id);
-		// System.out.println(m_Food);
-		m_user.setId(m_Food.getId());
-		m_user.setFoodinfo(m_Food.getFoodinfo());
-		m_user.setFoodname(m_Food.getFoodname());
-		m_user.setPhoto(m_Food.getPhoto());
-		m_user.setPrice(m_Food.getPrice());
-		int i = shoppService.getInsertByName(m_user);
-		// System.out.println(i);
-		String message = null;
-		if (i != 0) {
-			message = "添加成功";
+			T_food m_Food = footservice.getOneByName(id);
+			// System.out.println(m_Food);
+			m_user.setId(m_Food.getId());
+			m_user.setFoodinfo(m_Food.getFoodinfo());
+			m_user.setFoodname(m_Food.getFoodname());
+			m_user.setPhoto(m_Food.getPhoto());
+			m_user.setPrice(m_Food.getPrice());
+			int i = shoppService.getInsertByName(m_user);
+			// System.out.println(i);
+			String message = null;
+			if (i != 0) {
+				message = "添加成功";
+			} else {
+				message = "添加失败";
+			}
+			jsonObject.put("message", message);
+			jsonArray.add(jsonObject);
+
+			PrintWriter out = response.getWriter();
+			out.println(jsonArray);
+			out.close();
 		} else {
-			message = "添加失败";
-		}
-		jsonObject.put("message", message);
-		jsonArray.add(jsonObject);
-
-		PrintWriter out = response.getWriter();
-		out.println(jsonArray);
-		out.close();
-		}else{
 			String message = null;
 			message = "请登陆！";
 			jsonObject.put("message", message);
@@ -119,18 +120,23 @@ public class OrderController {
 			out.println(jsonArray);
 			out.close();
 		}
-		
+
 		return null;
 	}
+
+	@Resource
+	private T_admin t_admin;
 
 	// 登陆成功后从个人信息跳到主页面
 	@RequestMapping("/Index.action")
 	public String Index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		// System.out.println("1232321342421");
+
 		HttpSession session = request.getSession();
 		t_user = (T_user) session.getAttribute("t_user");
 		// System.out.println(t_user+"对像");
 		String name = t_user.getUsername();
+
 		// System.out.println(name);
 		model.addAttribute("name", name);
 		// request.getParameter("");
@@ -144,18 +150,18 @@ public class OrderController {
 	public void GouWuChe(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-//		 System.out.println(11111111);
+		// System.out.println(11111111);
 		HttpSession session = request.getSession();
 		t_user = (T_user) session.getAttribute("t_user");
 		String user_tel = t_user.getTel();
 		// System.out.println("用户的id" + user_tel);
 		List<T_food> user = shoppService.getSelectShoppByName(user_tel);
-		double money = 0 ;
-		for (T_food t_food : user) {			
-//			System.out.println("钱啊"+t_food.getPrice());
+		double money = 0;
+		for (T_food t_food : user) {
+			// System.out.println("钱啊"+t_food.getPrice());
 			money += t_food.getPrice();
-//			System.out.println("总"+money);
-			
+			// System.out.println("总"+money);
+
 		}
 		int i = user.size();
 		jsonObject.put("gradelist", user);
@@ -164,7 +170,7 @@ public class OrderController {
 		jsonArray.add(jsonObject);
 
 		PrintWriter out = response.getWriter();
-//		System.out.println("测试"+jsonArray);
+		// System.out.println("测试"+jsonArray);
 		out.println(jsonArray);
 		out.close();
 	}
@@ -182,22 +188,22 @@ public class OrderController {
 
 		// System.out.println(i);
 		String message = null;
-		
+
 		if (i != 0) {
-			
+
 			HttpSession session = request.getSession();
 			t_user = (T_user) session.getAttribute("t_user");
 			String user_tel = t_user.getTel();
 			// System.out.println("用户的id" + user_tel);
 			List<T_food> user = shoppService.getSelectShoppByName(user_tel);
-			double moneyz = 0 ;
-			for (T_food t_food : user) {			
-//				System.out.println("钱啊"+t_food.getPrice());
+			double moneyz = 0;
+			for (T_food t_food : user) {
+				// System.out.println("钱啊"+t_food.getPrice());
 				moneyz += t_food.getPrice();
-//				System.out.println("总"+money);
-				
+				// System.out.println("总"+money);
+
 			}
-//			session.setAttribute("money", money);
+			// session.setAttribute("money", money);
 			// System.out.println(user);
 			int i1 = user.size();
 			jsonObject.put("gradelist", user);
@@ -208,7 +214,7 @@ public class OrderController {
 			PrintWriter out = response.getWriter();
 			out.println(jsonArray);
 			out.close();
-			
+
 		} else {
 			message = "删除失败";
 		}
@@ -219,7 +225,5 @@ public class OrderController {
 		out.println(jsonArray);
 		out.close();
 	}
-	
-	
-	
+
 }

@@ -70,5 +70,11 @@ public class FoodService {
 		// TODO Auto-generated method stub
 		return t_foodMapper.getOneByName(id);
 	}
+
+	public List<T_food> selectByName(String foodname) {
+		// TODO Auto-generated method stub
+		return t_foodMapper.selectByName(foodname);
+	}
+
 	
 }

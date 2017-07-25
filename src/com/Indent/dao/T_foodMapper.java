@@ -58,4 +58,7 @@ public interface T_foodMapper {
 	List<T_food> getUserByName(String id);
 
 	T_food getOneByName(String id);
+
+	List<T_food> selectByName(String foodname);
+
 }

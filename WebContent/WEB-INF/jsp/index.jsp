@@ -22,6 +22,7 @@
 			<div id="header" data-options="region:'north'">
 				<h1 class="header-welcome">商家操作平台</h1>
 				<span class="header-yuan">欢迎:<a class="header-acolor" href="">${t_admins.adminname}</a><a class="header-abut" id="logoff">注销</a></span>
+			
 			</div>
 			<div id="seidmenu" data-options="region:'west',split:false" style="overflow:auto;">
 				<ul>

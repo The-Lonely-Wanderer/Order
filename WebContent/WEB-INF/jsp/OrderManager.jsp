@@ -48,5 +48,10 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js">
+		
+	
+	
+	</script>
 </body>
 </html>
