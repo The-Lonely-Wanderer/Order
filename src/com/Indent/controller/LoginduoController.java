@@ -548,34 +548,12 @@ public class LoginduoController {
 		this.tr = tr;
 	}
 
-	// 跳转用户注册页面
-	@RequestMapping("userregist.action")
-	public ModelAndView userregist(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("register");
-	}
 
-	// 跳转用户登录页面
-	@RequestMapping("userlogin1.action")
-	public ModelAndView userlogin1(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("login");
-	}
-
-	// 跳转到用户基本资料页面
-	@RequestMapping("userbiao.action")
-	public ModelAndView userbiao(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("UserBiao");
-	}
 
 	// 跳转用户订单页面
 	@RequestMapping("myorder.action")
 	public ModelAndView myorder(HttpServletRequest request, HttpServletResponse response) {
 		return new ModelAndView("myorder");
-	}
-
-	// 跳转用户订单页面
-	@RequestMapping("mymessage.action")
-	public ModelAndView mymessage(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("mymessage");
 	}
 
 	// 注册
@@ -608,6 +586,29 @@ public class LoginduoController {
 		}
 		return mav;
 	}
+
+		//跳转用户注册页面	
+		@RequestMapping("userregist.action")
+		public ModelAndView userregist(HttpServletRequest request, HttpServletResponse response) {
+			return new ModelAndView("register");
+		}
+		//跳转用户登录页面
+		@RequestMapping("userlogin1.action")
+		public ModelAndView userlogin1(HttpServletRequest request, HttpServletResponse response) {
+			return new ModelAndView("login");
+		}
+		//跳转到用户基本资料页面
+		@RequestMapping("userbiao.action")
+		public ModelAndView userbiao(HttpServletRequest request, HttpServletResponse response) {
+			return new ModelAndView("UserBiao");
+		}
+				
+			//跳转用户点评页面
+					@RequestMapping("mymessage.action")
+					public ModelAndView mymessage(HttpServletRequest request, HttpServletResponse response) {
+						return new ModelAndView("mymessage");
+					}
+
 
 	// 登录
 

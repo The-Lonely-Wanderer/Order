@@ -40,7 +40,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 				<!--右侧未登录状态-->
 				<div class="noLogin clearfix">
             		<a href="userregist.action" rel="nofollow"	onClick="_gaq.push(['_trackEvent', 'dwb','register']);" title=""  class="btnOrg40">注册</a>
-		            <a href="userlogin1.actio" rel="nofollow"	onClick="_gaq.push(['_trackEvent', 'dwb','login']);" title=""  class="btnOrg40" id="login-url">登录</a>
+		            <a href="userlogin1.action" rel="nofollow"	onClick="_gaq.push(['_trackEvent', 'dwb','login']);" title=""  class="btnOrg40" id="login-url">登录</a>
         		</div><!--noLogin end 未登录-->
 			
 		
