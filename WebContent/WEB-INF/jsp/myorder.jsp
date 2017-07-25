@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -45,14 +46,12 @@
 					<a href="/ucenter/home!index.do" title="" class="uesName"
 						id="uesName">${t_user.username}</a> <span class="triangle_icon"></span>
 
-					<ul>
-							<li class="ucenter-moudle"><a href="userbiao.action"
-								class="db f14" id="cateId1">基本资料</a></li>
-							<li class="ucenter-moudle"><a href="myorder.action"
-								class="db f14" id="cateId3">我的订单</a></li>
-							<li class="ucenter-moudle"><a href="/ucenter/home!cmt.do"
-								class="db f14" id="cateId9">我的点评</a></li>
-						</ul>
+					<ul class="useList" style="display: none;" id="personalListList">
+						<li><a href="myorder.action" title="">我的订单</a></li>
+						<li><a href="userbiao.action" title="">个人资料</a></li>
+						<li><a href="mymessage.action" title="">我的点评</a></li>
+						<li><a href="/j_spring_security_logout" title="">退出</a></li>
+					</ul>
 				</div>
 				<a> <span class="vm f14">订单监控</span>
 				</a>
@@ -82,7 +81,7 @@
 								class="db f14" id="cateId1">基本资料</a></li>
 							<li class="ucenter-moudle"><a href="myorder.action"
 								class="db f14" id="cateId3">我的订单</a></li>
-							<li class="ucenter-moudle"><a href="/ucenter/home!cmt.do"
+							<li class="ucenter-moudle"><a href="mymessage.action"
 								class="db f14" id="cateId9">我的点评</a></li>
 						</ul>
 					</dd>
@@ -107,22 +106,24 @@
 								<!--数据表格-->
 								<a name="order-list" id="order-list"></a>
 
-								<dl class="u-order-dl">
-									<dt class="f-cb f14">
-										<div class="fl u-order-th-shop tc">商家</div>
-										<div class="fl w140 tc">订单金额</div>
-										<div class="fl w140 tc rel">
-											<span class="dib vm">当月订单</span><i
-												class="dib vm row-down-icon"></i>
-										</div>
-										<div class="fl w140 tc">订单状态</div>
-									</dt>
-									<dd>
-										<ul>
+								<table class="u-order-dl">
+									<tr class="f-cb f14">
+										<th class="fl u-order-th-shop tc">菜品</th>
+										<th class="fl w140 tc">订单金额</th>
+										<th class="fl w140 tc rel">下单时间</th>
+										<th class="fl w140 tc">订单状态</th>
+									</tr>
+									<c:forEach items="${order}" var="order">									
+										<tr>						
+											<td class="fl u-order-th-shop tc">${order.getT_food().getFoodname()}</td>
+											
+											<td class="fl w140 tc">${order.getPrices()}</td>
+											<td class="fl w140 tc rel">${order.getCreateTime()}</td>
+											<td class="fl w140 tc">${order.getStatus()}</td> 
+										</tr>
+									</c:forEach>
+								</table>
 
-										</ul>
-									</dd>
-								</dl>
 							</div>
 						</div>
 					</div>

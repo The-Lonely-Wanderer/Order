@@ -254,5 +254,11 @@
  <select id="true_updateuser" parameterType="com.Indent.vo.T_user" resultMap="BaseResultMap">
   select * from t_user where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="testtel"	parameterType="com.Indent.vo.T_user" resultMap="BaseResultMap">
+  	select * from t_user where tel=#{tel}
+  </select>
   
+  <select id="testusername"	parameterType="com.Indent.vo.T_user" resultMap="BaseResultMap">
+  	select * from t_user where username=#{username}
+  </select>
 </mapper>
