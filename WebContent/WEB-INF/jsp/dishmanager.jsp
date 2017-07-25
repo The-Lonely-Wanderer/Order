@@ -40,8 +40,8 @@
 									name="food_id" style="width: 200px"></select>
 							</div>
 							<div class="w-index">
-								<label class="w-label-1">图片：</label> <input type="file"
-									id="photo" name="photo" style="width: 200px">
+								<label class="w-label-1">图片：</label> 
+								<input type="file" id="photo" name="photo" style="width: 200px">
 							</div>
 							<div class="w-index">
 								<label class="w-label-1">菜品信息：</label> <input type="text"
