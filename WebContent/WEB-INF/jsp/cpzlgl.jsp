@@ -144,7 +144,7 @@
 										+ "</td><td>"
 										+ list[i].catelogName
 										+ "</td><td title='"
-							+list[i].catelogInfo+"'>"
+										+list[i].catelogInfo+"'>"
 										+ list[i].catelogInfo
 										+ "</td><td><span> <a class='c-taba' href='#' onclick='tanchuang('"
 										+ list[i].id

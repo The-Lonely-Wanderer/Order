@@ -234,10 +234,10 @@ footer">
 							<div class="tbar-checkout">
 								<div class="jtc-number">
 
-									<strong class="J-count">0</strong>件商品
+									<strong class="J-count"><b id = "length"></b></strong>件商品
 								</div>
 								<div class="jtc-sum">
-									共 计： <strong class="J-total">¥113</strong>
+									共 计： <strong class="J-total">¥<b id="zong"></b></strong>
 								</div>
 								<a class="jtc-btn J-btn" href="#none" target="_blank">去购物车结算</a>
 							</div>

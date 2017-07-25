@@ -63,7 +63,7 @@
 				<a href="userregist.action" rel="nofollow"
 					onClick="_gaq.push(['_trackEvent', 'dwb','register']);" title=""
 					class="btnOrg40">注册</a> 
-					<a href="userlogin1.actio" rel="nofollow"
+					<a href="userlogin1.action" rel="nofollow"
 					onClick="_gaq.push(['_trackEvent', 'dwb','login']);" title=""
 					class="btnOrg40" id="login-url">登录</a>
 			</div>

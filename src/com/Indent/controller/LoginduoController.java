@@ -2,6 +2,7 @@ package com.Indent.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -24,13 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
-import org.springframework.web.servlet.support.RequestContext;
 import com.Indent.vo.T_user;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-import sun.security.action.PutAllAction;
 
 import com.Indent.service.AdminService;
 import com.Indent.service.CatelogService;
@@ -56,7 +53,6 @@ import com.Indent.vo.T_order;
 @Controller
 // @RequestMapping(value="/hello")
 public class LoginduoController {
-
 	@Resource
 	private UserService us;
 	@Resource
@@ -71,136 +67,16 @@ public class LoginduoController {
 	}
 
 	static String id;// 解决多页面之间id传值问题;
-
 	@Resource
 	private JSONArray jsonArray;
 	@Resource
 	private JSONObject jsonObject;
 	@Resource
 	private FoodService footservice;
-	// 主页面的搜索框方法
-
-	@RequestMapping("/findGrade.action")
-
-	public ModelAndView findGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		String id = request.getParameter("i_id");
-		// System.out.println("搜索框"+id);
-		List<T_food> user = footservice.getUserByName(id);
-		// System.out.println("搜索"+user);
-
-		jsonObject.put("gradelist", user);
-		jsonArray.add(jsonObject);
-
-		PrintWriter out = response.getWriter();
-		out.println(jsonArray);
-		out.close();
-		return null;
-	}
-
-	// 点击购买事件
-
 	@Resource
 	private T_food m_user;
 	@Resource
 	private ShoppService shoppService;
-
-	// 点击购买事件
-
-	@RequestMapping("/gouMai.action")
-	public ModelAndView gouMai(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-
-		String id = request.getParameter("id");
-
-		T_food m_Food = footservice.getOneByName(id);
-		System.out.println(m_Food);
-		m_user.setId(m_Food.getId());
-		m_user.setFoodinfo(m_Food.getFoodinfo());
-		m_user.setFoodname(m_Food.getFoodname());
-		m_user.setPhoto(m_Food.getPhoto());
-		m_user.setPrice(m_Food.getPrice());
-		int i = shoppService.getInsertByName(m_user);
-		System.out.println(i);
-		String message = null;
-		if (i != 0) {
-			message = "添加成功";
-		} else {
-			message = "添加失败";
-		}
-		jsonObject.put("message", message);
-		jsonArray.add(jsonObject);
-
-		PrintWriter out = response.getWriter();
-		out.println(jsonArray);
-		out.close();
-		return null;
-	}
-
-	// 登陆成功后从个人信息跳到主页面
-	@RequestMapping("/Index.action")
-	public String Index(HttpServletRequest request, HttpServletResponse response, Model model) {
-		System.out.println("1232321342421");
-		HttpSession session = request.getSession();
-		t_user = (T_user) session.getAttribute("t_user");
-		System.out.println(t_user + "对像");
-		String name = t_user.getUsername();
-		System.out.println(name);
-		model.addAttribute("name", name);
-		// request.getParameter("");
-
-		return "M_index";
-
-	}
-
-	// 购物车点击关注按钮事件
-	@RequestMapping("/GouWuChe.action")
-	public void GouWuChe(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		System.out.println(11111111);
-		HttpSession session = request.getSession();
-		t_user = (T_user) session.getAttribute("t_user");
-		String user_tel = t_user.getTel();
-		System.out.println("用户的id" + user_tel);
-		List<T_food> user = shoppService.getSelectShoppByName(user_tel);
-		System.out.println(user);
-		jsonObject.put("gradelist", user);
-		jsonArray.add(jsonObject);
-
-		PrintWriter out = response.getWriter();
-		out.println(jsonArray);
-		out.close();
-	}
-
-	// 购物车点击删除按钮事件
-	@RequestMapping("/goudelet.action")
-	public ModelAndView GouDelet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-
-		String id = request.getParameter("id");
-		System.out.println("购物车删除" + id);
-
-		int i = shoppService.getDelectByName(id);
-
-		System.out.println(i);
-		// String message = null;
-		// if(i!=0){
-		// message = "添加成功";
-		// }else{
-		// message = "添加失败";
-		// }
-		// jsonObject.put("message",message);
-		// jsonArray.add(jsonObject);
-		//
-		// PrintWriter out = response.getWriter();
-		// out.println(jsonArray);
-		// out.close();
-		return null;
-	}
 
 	// 柯蒙蒙
 	// 登录
@@ -458,6 +334,7 @@ public class LoginduoController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+
 			}
 		}
 	}
@@ -503,34 +380,48 @@ public class LoginduoController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+
 			}
 
 		}
+
 	}
 
-	// 菜品添加MultipartFile photo,,T_food t_food
-	@RequestMapping(value="/addfood.action")
-	public ModelAndView addfood(@RequestParam(value="photo", required = false) MultipartFile photo,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
-	request.setCharacterEncoding("UTF-8");
-	response.setCharacterEncoding("UTF-8");
-	
-	try {
-		String path=request.getSession(true).getServletContext().getRealPath("images/foodimage");
-		String name=photo.getOriginalFilename();
-		File file=new File(path,name);
-		photo.transferTo(file);
-		String foodname=request.getParameter("foodname");
-		System.out.println("foodname-->"+foodname+" path-->"+path+" name-->"+name+" file-->"+file);
+	@Resource
+	T_food t_food;
+
+	// 上传图片MultipartFile(value = "photo", required = false) photo,,T_food t_food
+	@RequestMapping(value = "/addfood.action")
+	public ModelAndView addfood(@RequestParam MultipartFile photo, HttpServletRequest request, HttpServletResponse response)
+			throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		
-	} catch (IllegalStateException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-		return new ModelAndView("dishmanager");
+		ModelAndView modelAndView=new ModelAndView();
+		try {
+			String path = request.getSession(true).getServletContext().getRealPath("images/foodimage");
+			String name = photo.getOriginalFilename();
+			File file = new File(path, name);
+			photo.transferTo(file);
+			t_food.setId(tr.getUUID());
+			t_food.setFoodname(request.getParameter("foodname"));
+			t_food.setFoodinfo(request.getParameter("foodinfo"));
+			t_food.setPhoto(name);
+			t_food.setPrice(Double.parseDouble(request.getParameter("price")));
+			int i=foodService.insertSelective(t_food);
+			if(i>0){
+				List<T_food> foodlist=foodService.selectByAll();
+				modelAndView.setViewName("dishmanager");
+				modelAndView.addObject("foodlist",foodlist);
+			}  
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
 	}
 
 	// 留言管理

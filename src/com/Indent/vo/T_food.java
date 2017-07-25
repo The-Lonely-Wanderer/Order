@@ -111,10 +111,12 @@ public class T_food {
 		return true;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "T_food [id=" + id + ", tel=" + tel + ", foodinfo=" + foodinfo + ", foodname=" + foodname + ", photo="
-				+ photo + ", price=" + price + ", catelogId=" + catelogId + ", num=" + num + "]";
+		return "T_food [id=" + id + ", foodinfo=" + foodinfo + ", foodname=" + foodname + ", photo=" + photo
+				+ ", price=" + price + ", catelogId=" + catelogId + ", num=" + num + "]";
 	}
 
 
