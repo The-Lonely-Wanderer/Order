@@ -217,7 +217,7 @@ table td {
 	height: 40px;
 	line-height: 40px;
 	color: #666;
-	font-size: 14px;
+	font-size: 12px;
 	border-bottom: 1px dashed #d8d8d9;
 	overflow: hidden;
 	border-left: 1px solid #d8d8d9;
@@ -238,8 +238,11 @@ table td {
 	}
 #banner p{
 	margin-left:10px;
-	font-size:16px;
+	font-size:14px;
 	
+	}
+#adele:hover{
+		color:red;
 	}
 #banner:hover{transform:scale(1.05);}
 

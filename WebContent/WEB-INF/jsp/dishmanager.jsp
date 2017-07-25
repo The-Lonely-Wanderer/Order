@@ -18,10 +18,9 @@
 <script type="text/javascript" src="easyui_1.4.4/jquery.edatagrid.js"></script>
 <script type="text/javascript" src="easyui_1.4.4/locale/easyui-lang-zh_CN.js"></script>
 <script src="js/adminpagejs/js.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="js/adminpagecss/foodajax.js"></script>
 
 </head>
-<body>
+<body ondragstart=" return false">
 	<div class="content">
 		<div class="content-headtab">
 			<p>
@@ -30,33 +29,33 @@
 					<div id="tj-admin" class="easyui-dialog" modal="true"
 						closable="false" closed="true" title="添加菜品信息"
 						style="width: 400px; background: #fff; overflow: hidden;">
-						<form id="tj-addfoodform" action="addfoodaction" method="post">
-							<div class="w-index">
-								<label class="w-label-1">菜品名：</label> <input class="w-itext"
-									type="text" id="food_name" name="food_name"
-									style="width: 200px" value="" placeholder="请输入菜品名" />
-							</div>
-							<div class="w-index">
-								<label class="w-label-1">菜品种类：</label> <select id="food_id"
-									name="food_id" style="width: 200px"></select>
-							</div>
+						<form id="tj-addfoodform" action="addfood.action" method="post" enctype="multipart/form-data">
+<!-- 							<div class="w-index"> -->
+<!-- 								<label class="w-label-1">菜品名：</label> <input class="w-itext" -->
+<!-- 									type="text" id="foodname" name="foodname" -->
+<!-- 									style="width: 200px" value="" placeholder="请输入菜品名" /> -->
+<!-- 							</div> -->
+<!-- 							<div class="w-index"> -->
+<!-- 								<label class="w-label-1">菜品种类：</label> <select id="food_id" -->
+<!-- 									name="food_id" style="width: 200px"></select> -->
+<!-- 							</div> -->
 							<div class="w-index">
 								<label class="w-label-1">图片：</label> <input type="file"
 									id="photo" name="photo" style="width: 200px">
 							</div>
-							<div class="w-index">
-								<label class="w-label-1">菜品信息：</label> <input type="text"
-									id="food_message" name="food_message" style="width: 200px"
-									placeholder="请输入菜品信息">
-							</div>
-							<div class="w-index">
-								<label class="w-label-1">单价：</label> <input type="text"
-									id="food_price" name="food_price" style="width: 200px"
-									placeholder="请输入单价">
-							</div>
+<!-- 							<div class="w-index"> -->
+<!-- 								<label class="w-label-1">菜品信息：</label> <input type="text" -->
+<!-- 									id="food_message" name="food_message" style="width: 200px" -->
+<!-- 									placeholder="请输入菜品信息"> -->
+<!-- 							</div> -->
+<!-- 							<div class="w-index"> -->
+<!-- 								<label class="w-label-1">单价：</label> <input type="text" -->
+<!-- 									id="food_price" name="food_price" style="width: 200px" -->
+<!-- 									placeholder="请输入单价"> -->
+<!-- 							</div> -->
 							<div class="w-index"
 								style="text-align: center; margin-top: 30px;">
-								<input id="addfoodsub" class="w-but1" type="button" value="提交" />
+								<input id="addfoodsub" class="w-but1" type="submit" value="提交" />
 								<input class="w-but1" type="button" onclick="d_close_tj()"
 									value="返回" />
 							</div>
@@ -87,19 +86,18 @@
 			</div>
 			<div class="content-tab">
 				<c:forEach items="${foodlist}" var="food">
-					<div id="banner">
+					<div id="banner" class="${foodlist}">
 						<img style="width:100%;height:50%;" src="images/foodimage/${food.photo}" title="${food.photo}" />
-<%-- 						<p>编号:${food.catelogId}</p> --%>
 						<p>名称:${food.foodname}</p>
 						<p>描述:${food.foodinfo}</p>
 						<p>价格:${food.price}</p>
-						<p><a id="adele"  href="#" onclick="deletefood()">刪除</a></p>
+						<p style="margin-bottom:0px;"><a id="adele"  href="#" onclick="remove('${food.id}')">删除</a></p>
 					</div>
 				</c:forEach>
 				<div id="xg-admin" class="easyui-dialog" modal="true"
 					closable="false" closed="true" title="修改管理员信息"
 					style="width: 400px; background: #fff; overflow: hidden;">
-					<form id="xg-adminform" action="changefoodaction" method="post">
+					<form id="xg-adminform" action="addfood.action" method="POST" enctype="multipart/form-data">
 						<div class="w-index" style="display: none">
 							<label class="w-label-1">编号：</label> <input class="w-itext"
 								type="text" id="xg-id" name="id" placeholder="请输入编号" />
@@ -115,7 +113,7 @@
 						</div>
 						<div class="w-index">
 							<label class="w-label-1">图片：</label><input type="file"
-								id="picture" name="picture" width="200px">
+								id="picture" name="photo" width="200px">
 						</div>
 						<div class="w-index">
 							<label class="w-label-1">菜品信息：</label> <input type="text"
@@ -128,8 +126,8 @@
 								placeholder="请输入单价">
 						</div>
 						<div class="w-index" style="text-align: center; margin-top: 30px;">
-							<input id="xg-but" class="w-but1" type="button" value="提交" /> <input
-								class="w-but1" type="button" onclick="d_close()" value="返回" />
+							<input id="xg-but" class="w-but1" type="button" value="提交" />
+							 <input class="w-but1" type="button" onclick="d_close()" value="返回" />
 						</div>
 					</form>
 				</div>
@@ -143,8 +141,21 @@
 </body>
 <script type="text/javascript">
 	function remove(id) {
-		if (confirm("是否删除该数据？")) {
-			location.href = "deletefoodaction?id=" + id;
+		if (confirm("是否删除该菜品？")) {
+			$.ajax({
+				type:"post",
+				url:"delefood.action",
+				data:{id:id},
+				async:true,
+				success:function(flage){
+					var json=jQuery.parseJSON(flage);
+					var flages=json[0].flage;
+					if(flages>0){
+							$("."+id+"").remove();
+							window.location.reload();//刷新当前页面
+					}
+				}
+			});			
 		} else {
 			alert("该操作已取消！");
 		}
@@ -162,12 +173,26 @@
 	}
 	$("#addfoodsub").click(
 			function() {
-				if ($("#food_name").val().length == 0
+				if ($("#foodname").val().length == 0
 						|| $("#food_message").val().length == 0
 						|| $("#food_price").val().length == 0) {
 					alert("输入框不能为空！  ");
 				} else {
-					$("#tj-addfoodform").submit();
+					$.ajax({
+						type:"POST",
+						url:"addfood.action",
+						data:{
+// 							foodinfo:,
+// 							foodname:,
+							photo:$("#photo").val()
+// 							price:,
+// 							catelogId:,
+						},
+						success:function(){
+							
+							
+						}
+					});
 				}
 			});
 
@@ -184,7 +209,22 @@
 						|| $("#food_price1").val().length == 0) {
 					alert("信息不能为空")
 				} else {
-					$("#xg-adminform").submit();
+					
+// 					$.ajax({
+// 						type:"POST",
+// 						url:"addfood.action",
+// 						data:{
+// // 							foodinfo:,
+// // 							foodname:,
+// 							photo:$("#photo").val()
+// // 							price:,
+// // 							catelogId:,
+// 						},
+// 						success:function(){
+							
+							
+// 						}
+// 					});
 				}
 			});
 
