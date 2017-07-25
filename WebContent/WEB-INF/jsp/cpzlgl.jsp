@@ -31,7 +31,7 @@
 					<div id="tj-cpzl" class="easyui-dialog" modal="true"
 						closable="false" closed="true" title="添加菜品种类信息"
 						style="width: 400px; height: 300px; background: #fff; overflow: hidden;">
-						<form id="addcpzl" action="addcatelogservlet" method="post">
+						<form id="addcpzl" method="post">
 							<div class="w-index">
 								<label class="w-label-1">菜品种类：</label> <input class="w-itext"
 									id="tjcpzlinfo" type="text" name="cateloginfo"
@@ -202,7 +202,7 @@
 														+list[i].id+"' ><td>"
 														+ list[i].id
 														+ "</td><td>"
-												list[i].catelogName
+														+list[i].catelogName
 														+ "</td><td title='"
 														+list[i].catelogInfo+"'>"
 														+ list[i].catelogInfo

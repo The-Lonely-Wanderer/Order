@@ -31,7 +31,7 @@ $("document").ready(
 															var list = json[0].gradelist;
 															var str = "";
 															for ( var i in list) {
-																str += "<div id='banner' ><img style='width:100%;height:50%;' src='images/"
+																str += "<div id='banner' ><img style='width:100%;height:50%;' src='images/foodimage/"
 																		+ list[i].photo
 																		+ "'/><p>名称:"
 																		+ list[i].foodname
