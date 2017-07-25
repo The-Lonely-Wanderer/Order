@@ -249,7 +249,8 @@ footer">
 						<h3 class="tbar-panel-header J-panel-
 
 header">
-							<a href="#" target="_blank" class="title"> <i></i> <!-- 商品查询的点击事件 -->
+							<a href="#" target="_blank" class="title"> <i></i> 
+							<!-- 商品查询的点击事件 -->
 								<em class="title">我的关注</em>
 							</a> <span class="close-panel J-close"></span>
 						</h3>

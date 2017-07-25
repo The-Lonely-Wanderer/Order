@@ -24,10 +24,8 @@ $("document").ready(
 														},
 														// 请求成功后的回调函数。 data
 														// 为服务器返回的数据
-														success : function(
-																gradelist) {
-															var json = jQuery
-																	.parseJSON(gradelist);
+														success : function(gradelist) {
+															var json = jQuery.parseJSON(gradelist);
 															var list = json[0].gradelist;
 															var str = "";
 															for ( var i in list) {
@@ -51,6 +49,7 @@ $("document").ready(
 																 +"');>加入购物车</span></div>"
 																 			
 															}
+															
 															$("#shangpin")
 																	.html(
 																			"<div style='width:900px;height:500px;'>"
@@ -79,7 +78,6 @@ function look(id) {
 		success : function(alist) {
 			var json = jQuery.parseJSON(alist);
 			var message = json[0].message;
-			
 //			var d = dialog({content: massage+'对话框将在两秒内关闭'});
 //			d.show();
 //			setTimeout(function () {

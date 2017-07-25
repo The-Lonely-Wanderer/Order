@@ -52,6 +52,7 @@ public class OrderController {
 	public ModelAndView findGrade(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		
 		String id = request.getParameter("i_id");
 		// System.out.println("搜索框"+id);
 		List<T_food> user = footservice.getUserByName(id);
@@ -63,6 +64,7 @@ public class OrderController {
 		PrintWriter out = response.getWriter();
 		out.println(jsonArray);
 		out.close();
+			
 		return null;
 	}
 
@@ -79,7 +81,11 @@ public class OrderController {
 	public ModelAndView gouMai(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-
+		HttpSession session = request.getSession();
+		t_user =(T_user) session.getAttribute("t_user");
+		System.out.println(t_user+"1111111111111");
+//		String u = t_user.getUsername();
+		if(t_user!=null){
 		String id = request.getParameter("id");
 
 		T_food m_Food = footservice.getOneByName(id);
@@ -103,6 +109,17 @@ public class OrderController {
 		PrintWriter out = response.getWriter();
 		out.println(jsonArray);
 		out.close();
+		}else{
+			String message = null;
+			message = "请登陆！";
+			jsonObject.put("message", message);
+			jsonArray.add(jsonObject);
+
+			PrintWriter out = response.getWriter();
+			out.println(jsonArray);
+			out.close();
+		}
+		
 		return null;
 	}
 
