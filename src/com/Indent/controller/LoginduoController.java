@@ -2,8 +2,10 @@ package com.Indent.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +13,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
+import org.omg.Messaging.SyncScopeHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,14 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
-import org.springframework.web.servlet.support.RequestContext;
 import com.Indent.vo.T_user;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-
-
-import sun.security.action.PutAllAction;
 
 import com.Indent.service.AdminService;
 import com.Indent.service.CatelogService;
@@ -53,7 +53,6 @@ import com.Indent.vo.T_order;
 @Controller
 // @RequestMapping(value="/hello")
 public class LoginduoController {
-
 	@Resource
 	private UserService us;
 	@Resource
@@ -74,6 +73,10 @@ public class LoginduoController {
 	private JSONObject jsonObject;
 	@Resource
 	private FoodService footservice;
+	@Resource
+	private T_food m_user;
+	@Resource
+	private ShoppService shoppService;
 
 	// 柯蒙蒙
 	// 登录
@@ -331,31 +334,10 @@ public class LoginduoController {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+
 			}
 		}
 	}
-
-
-
-	// 菜品删除
-	@RequestMapping(value = "/delefood.action")
-	public void delefood(String id, HttpServletRequest request, HttpServletResponse response) {
-		int flage = foodService.deleteByPrimaryKey(id);
-		if (flage > 0) {
-			jsonObject.put("flage", flage);
-			jsonArray.add(jsonObject);
-			try {
-				PrintWriter out = response.getWriter();
-				out.println(jsonArray);
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-	}
-
 
 	// 菜品管理
 	@Resource
@@ -383,29 +365,62 @@ public class LoginduoController {
 		}
 		return modelAndView;
 	}
-	// 菜品添加MultipartFile photo,,T_food t_food
-	@RequestMapping(value="/addfood.action")
-	public ModelAndView addfood(@RequestParam(value="photo", required = false) MultipartFile photo,HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
-	request.setCharacterEncoding("UTF-8");
-	response.setCharacterEncoding("UTF-8");
-	
-	try {
-		String path=request.getSession(true).getServletContext().getRealPath("images/foodimage");
-		String name=photo.getOriginalFilename();
-		File file=new File(path,name);
-		photo.transferTo(file);
-		String foodname=request.getParameter("foodname");
-		System.out.println("foodname-->"+foodname+" path-->"+path+" name-->"+name+" file-->"+file);
-		
-	} catch (IllegalStateException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+
+	// 菜品删除
+	@RequestMapping(value = "/delefood.action")
+	public void delefood(String id, HttpServletRequest request, HttpServletResponse response) {
+		int flage = foodService.deleteByPrimaryKey(id);
+		if (flage > 0) {
+			jsonObject.put("flage", flage);
+			jsonArray.add(jsonObject);
+			try {
+				PrintWriter out = response.getWriter();
+				out.println(jsonArray);
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+
+			}
+
+		}
+
 	}
-	
-		return new ModelAndView("dishmanager");
+
+	@Resource
+	T_food t_food;
+
+	// 上传图片MultipartFile(value = "photo", required = false) photo,,T_food t_food
+	@RequestMapping(value = "/addfood.action")
+	public ModelAndView addfood(@RequestParam MultipartFile photo, HttpServletRequest request, HttpServletResponse response)
+			throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		ModelAndView modelAndView=new ModelAndView();
+		try {
+			String path = request.getSession(true).getServletContext().getRealPath("images/foodimage");
+			String name = photo.getOriginalFilename();
+			File file = new File(path, name);
+			photo.transferTo(file);
+			t_food.setId(tr.getUUID());
+			t_food.setFoodname(request.getParameter("foodname"));
+			t_food.setFoodinfo(request.getParameter("foodinfo"));
+			t_food.setPhoto(name);
+			t_food.setPrice(Double.parseDouble(request.getParameter("price")));
+			int i=foodService.insertSelective(t_food);
+			if(i>0){
+				List<T_food> foodlist=foodService.selectByAll();
+				modelAndView.setViewName("dishmanager");
+				modelAndView.addObject("foodlist",foodlist);
+			}  
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return modelAndView;
 	}
 
 	// 留言管理
