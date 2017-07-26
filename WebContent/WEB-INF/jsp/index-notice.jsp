@@ -98,7 +98,7 @@
 							<td>${t_noticeslist.id}</td>
 							<td title="${t_noticeslist.title}">${t_noticeslist.title}</td>
 							<td title="${t_noticeslist.content}">${t_noticeslist.content}</td>
-							<td>${t_noticeslist.adminId}</td>
+							<td>${t_noticeslist.adminname}</td>
 							<td><fmt:formatDate value="${t_noticeslist.createTime}"
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
 							<td><fmt:formatDate value="${t_noticeslist.updateTime}"

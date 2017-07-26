@@ -8,7 +8,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.stream.events.EndDocument;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,11 +57,18 @@ public class OrderController {
 		response.setCharacterEncoding("utf-8");
 
 		String id = request.getParameter("i_id");
-		// System.out.println("搜索框"+id);
 		List<T_food> user = footservice.getUserByName(id);
-		// System.out.println("搜索"+user);
-
+		// 页数的查询方法
+		List<T_food> yeshu = footservice.getYeShuByName(id);
+		int fen = yeshu.size();
+		if (fen % 10 != 0) {
+			fen = fen / 10 + 1;
+		} else {
+			fen = fen / 10;
+		}
+		// System.out.println(fen+"分页");
 		jsonObject.put("gradelist", user);
+		jsonObject.put("fen", fen);
 		jsonArray.add(jsonObject);
 
 		PrintWriter out = response.getWriter();
@@ -84,23 +93,28 @@ public class OrderController {
 		response.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		t_user = (T_user) session.getAttribute("t_user");
-		System.out.println(t_user + "1111111111111");
-		// String u = t_user.getUsername();
+
 		if (t_user != null) {
 			String id = request.getParameter("id");
-
 			T_food m_Food = footservice.getOneByName(id);
-			// System.out.println(m_Food);
 			m_user.setId(m_Food.getId());
 			m_user.setFoodinfo(m_Food.getFoodinfo());
 			m_user.setFoodname(m_Food.getFoodname());
 			m_user.setPhoto(m_Food.getPhoto());
 			m_user.setPrice(m_Food.getPrice());
+			m_user.setTel(t_user.getTel());
 			int i = shoppService.getInsertByName(m_user);
 			// System.out.println(i);
 			String message = null;
 			if (i != 0) {
-				message = "添加成功";
+				// message = "添加成功";
+				String user_tel = t_user.getTel();
+				// System.out.println("用户的id" + user_tel);
+				List<T_food> user = shoppService.getSelectShoppByName(user_tel);
+				int tiao = user.size();
+				jsonObject.put("tiao", tiao);
+				jsonArray.add(jsonObject);
+
 			} else {
 				message = "添加失败";
 			}
@@ -226,4 +240,36 @@ public class OrderController {
 		out.close();
 	}
 
+
+	// 上一页分页功能
+	@RequestMapping("/fenyeshang.action")
+	public void FenYeShang(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("00000000000001111111");
+		String fen = request.getParameter("fen");
+		System.out.println(fen + "connller分页");
+	}
+
+	// 下一页分页功能
+	private int begin = 1;// 总页数页数
+	private int star = 0;
+	private int end = 0;// 到分的页数
+
+	@RequestMapping("/xiayiye.action")
+	public void XiaYiYer(HttpServletRequest request, HttpServletResponse response) {
+		begin++;
+		// 页数的查询方法
+		List<T_food> yeshu = footservice.getYeShuByName(id);
+		int fen = yeshu.size();
+		if (begin <= fen ) {
+			end = begin * 10;
+			star = end - 10;
+			String id = request.getParameter("i_id");
+			List<T_food> ye = footservice.getFenByName(id, star, end);
+			System.out.println(ye);
+			
+		}else{
+			System.out.println("1111111111");
+		}
+		
+	}
 }

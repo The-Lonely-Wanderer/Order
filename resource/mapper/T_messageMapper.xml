@@ -16,15 +16,14 @@
   
   <resultMap type="com.Indent.vo.T_message" id="BaseResultMap2">
   
-      <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="time" property="time" jdbcType="TIMESTAMP" />
     <result column="food_id" property="foodId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="foodname" property="foodname" jdbcType="VARCHAR" />
-  
-  
+ 
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
