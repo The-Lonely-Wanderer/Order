@@ -46,9 +46,9 @@ public class UserService {
 		return t_userMapper.updatepassword(tel,oldpassword,newpassword);
 	}
 
-	public T_user testpassword(String tel, String password) {
+	public T_user testpassword(String id, String password) {
 		
-		return t_userMapper.testpassword(tel,password);
+		return t_userMapper.testpassword(id,password);
 	}
 
 	public T_user true_updatepassword(String tel, String newpassword) {
@@ -97,5 +97,10 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return t_userMapper.selectByName(realname);
 
+	}
+
+	public void updatetime(T_user t_user) {
+		t_userMapper.updatetime(t_user);
+		
 	}
 }

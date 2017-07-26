@@ -51,4 +51,9 @@ public class MessageService{
 	public List<T_message> selectByAll(){
 		return t_messageMapper.selectByAll();
 	}
+
+	public List<T_message> selectmymessage(String id) {
+		
+		return t_messageMapper.selectmymessage(id);
+	}
 }

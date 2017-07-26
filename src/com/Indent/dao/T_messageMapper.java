@@ -54,4 +54,6 @@ public interface T_messageMapper {
     int updateByPrimaryKey(T_message record);
 
 	List<T_message> selectByAll();
+
+	List<T_message> selectmymessage(String id);
 }

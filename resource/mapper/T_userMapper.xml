@@ -235,20 +235,21 @@
 
   update t_user 
   set username = #{username,jdbcType=VARCHAR},
+   tel = #{tel,jdbcType=VARCHAR},
   address = #{address,jdbcType=VARCHAR},     
       password = #{password,jdbcType=VARCHAR},
       realName = #{realname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR}      
     where id = #{id,jdbcType=VARCHAR}
 
-
-  update t_user set username=#{username},relName=#{realname}
-  where tel=#{tel} and password=#{password}
-
   </update>
    
+   <update id="updatetime" parameterType="com.Indent.vo.T_user">
+   update t_user set update_time = #{updateTime,jdbcType=TIMESTAMP}
+   where id=#{id}
+   </update>
   <select id="testpassword" parameterType="java.lang.String" resultMap="BaseResultMap">
-  select * from t_user where tel=#{0} and password=#{1}
+  select * from t_user where id=#{0} and password=#{1}
   </select>
 
  <select id="true_updateuser" parameterType="com.Indent.vo.T_user" resultMap="BaseResultMap">
