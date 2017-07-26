@@ -56,6 +56,7 @@ public class FoodService {
 		return t_foodMapper.updateByPrimaryKey(record);
 
 	}
+
 	public List<T_food> selectByAll() {
 		// TODO Auto-generated method stub
 		return t_foodMapper.selectByAll();
@@ -70,5 +71,16 @@ public class FoodService {
 		// TODO Auto-generated method stub
 		return t_foodMapper.getOneByName(id);
 	}
-	
+
+	// 共有页数的查询
+	public List<T_food> getYeShuByName(String id) {
+		
+		return t_foodMapper.getYeShuByName(id);
+	}
+	//下一页
+	public List<T_food> getFenByName(String id, int begin, int end) {
+		
+		return t_foodMapper.getFenByName(id,begin,end);
+	}
+
 }

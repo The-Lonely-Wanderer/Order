@@ -327,7 +327,7 @@ footer"></div>
 				<div class="toolbar-tabs J-tab">
 					<div class="toolbar-tab tbar-tab-cart" id="gouwuche">
 						<i class="tab-ico"></i> <em class="tab-text ">购物车</em> <span
-							class="tab-sub J-count ">1</span>
+							class="tab-sub J-count "><b id="daohang"></b></span>
 					</div>
 					<div class=" toolbar-tab tbar-tab-follow">
 						<i class="tab-ico"></i> <em class="tab-text">我的关注</em> <span

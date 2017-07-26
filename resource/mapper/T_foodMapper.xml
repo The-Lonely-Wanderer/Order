@@ -111,9 +111,23 @@
 	<!-- 主页面搜索框模糊查询 -->
 	<select id="getUserByName" resultMap="BaseResultMap">
 		<!-- <if test="start == 0"> -->
-			select * from t_food where foodname like concat('%',#{id},'%') LIMIT 0,10
+			select * from t_food where foodname like concat('%',#{id},'%')LIMIT 0,10
 		<!-- </if> -->
-		<!-- like concat('%',#{font},'%')LIMIT 0,8 -->
+		<!-- like concat('%',#{font},'%')LIMIT 0,10 -->
+
+	</select>
+	<!-- 主页面搜索框模糊查询 -->
+	<select id="getYeShuByName" resultMap="BaseResultMap">
+		<!-- <if test="start == 0"> -->
+			select * from t_food where foodname like concat('%',#{id},'%')
+		<!-- </if> -->
+		<!-- like concat('%',#{font},'%')LIMIT 0,10 -->
+
+	</select>
+	<!-- 下一页 -->
+	<select id="getFenByName" resultMap="BaseResultMap">
+			select * from t_food where foodname like concat('%',#{0},'%')LIMIT #{1},#{2}
+		<!-- like concat('%',#{font},'%')LIMIT 0,10 -->
 
 	</select>
 	<!-- 点击添加购物车查询出来一个对象 -->

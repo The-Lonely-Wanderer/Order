@@ -101,7 +101,7 @@
 	</update>
 	<!-- 客户添加的商品功能 -->
 	<insert id="getInsertByName" parameterType="java.lang.Object">
-			insert into t_shopp (id,foodinfo,foodname,photo,price)values (#{id},#{foodinfo},#{foodname},#{photo},#{price})
+			insert into t_shopp (id,foodinfo,foodname,photo,price,tel)values (#{id},#{foodinfo},#{foodname},#{photo},#{price},#{tel})
 	</insert>
 	<!-- 客户查询购物车的商品功能 -->
 	<select id="getSelectShoppByName" resultMap="BaseResultMap">

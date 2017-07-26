@@ -17,7 +17,15 @@ public class T_food {
     private String id;
     private String tel;
 
-    public T_food(String id, String foodinfo, String foodname, String photo, Double price) {
+    public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public T_food(String id, String foodinfo, String foodname, String photo, Double price) {
 		super();
 		this.id = id;
 		this.foodinfo = foodinfo;
@@ -115,8 +123,8 @@ public class T_food {
 
 	@Override
 	public String toString() {
-		return "T_food [id=" + id + ", foodinfo=" + foodinfo + ", foodname=" + foodname + ", photo=" + photo
-				+ ", price=" + price + ", catelogId=" + catelogId + ", num=" + num + "]";
+		return "T_food [id=" + id + ", tel=" + tel + ", foodinfo=" + foodinfo + ", foodname=" + foodname + ", photo="
+				+ photo + ", price=" + price + ", catelogId=" + catelogId + ", num=" + num + "]";
 	}
 
 

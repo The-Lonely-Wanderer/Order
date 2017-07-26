@@ -58,4 +58,8 @@ public interface T_foodMapper {
 	List<T_food> getUserByName(String id);
 
 	T_food getOneByName(String id);
+	//共有几页的分页查询
+	List<T_food> getYeShuByName(String id);
+	//下一页
+	List<T_food> getFenByName(String id, int begin, int end);
 }
