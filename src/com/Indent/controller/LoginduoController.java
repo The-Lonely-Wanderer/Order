@@ -452,7 +452,9 @@ public class LoginduoController {
 	public ModelAndView lygl() {
 
 		List<T_message> messageMappers = messageService.selectByAll();
+		System.out.println(messageMappers);
 		ModelAndView modelAndView = new ModelAndView();
+		
 		if (messageMappers.size() > 0) {
 			modelAndView.setViewName("lygl");
 			modelAndView.addObject("messageMappers", messageMappers);

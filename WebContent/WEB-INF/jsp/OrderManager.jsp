@@ -49,6 +49,10 @@
 	margin-right: 10px;
 	border-radius: 5px;
 }
+.orderm{
+	width:100%;
+	height:150px;
+}
 </style>
 </head>
 <body>
@@ -57,14 +61,6 @@
 		<div class="content-foot">
 			${message}
 			<div class="content-tab">
-				<!-- 				<table> -->
-				<!-- 					<tr> -->
-				<!-- 						<th>编号</th> -->
-				<!-- 						<th>价格</th> -->
-				<!-- 						<th>状态</th> -->
-				<!-- 						<th>创建时间</th> -->
-				<!-- 						<th>会员</th> -->
-				<!-- 					</tr> -->
 
 				<c:forEach var="t_orderlist" items="${t_orderlist}">
 					<div class="order">
@@ -84,13 +80,11 @@
 							<p class="orderm" ></p>
 
 							<p>下单时间:
-								<fmt:formatDate value="${t_orderlist.createTime}"
-									pattern="yyyy-MM-dd HH:mm:ss" />
+								<fmt:formatDate value="${t_orderlist.createTime}" pattern="yyyy-MM-dd HH:mm:ss" />
 							</p>
 							<p>
 								<span>訂單號:</span>&nbsp;&nbsp;${t_orderlist.userId} 
 								<c:if test="${t_orderlist.status <2}">
-								
 									<select class="selec">
 										<option value="0">待处理</option>
 										<option value="1">正在处理</option>
@@ -101,8 +95,6 @@
 						</div>
 					</div>
 				</c:forEach>
-				<!-- 				</table> -->
-
 			</div>
 		</div>
 	</div>
