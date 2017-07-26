@@ -23,6 +23,7 @@ import com.Indent.vo.T_food;
 import com.Indent.vo.T_user;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 
 @Controller
 public class OrderController {
@@ -102,6 +103,7 @@ public class OrderController {
 			m_user.setPrice(m_Food.getPrice());
 			m_user.setTel(t_user.getTel());
 			int i = shoppService.getInsertByName(m_user);
+			
 			// System.out.println(i);
 			String message = null;
 			if (i != 0) {
@@ -251,21 +253,40 @@ public class OrderController {
 	private int end = 0;// 到分的页数
 
 	@RequestMapping("/xiayiye.action")
-	public void XiaYiYer(HttpServletRequest request, HttpServletResponse response) {
+	public void XiaYiYer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		begin++;
 		// 页数的查询方法
+		String id = request.getParameter("i_id");
 		List<T_food> yeshu = footservice.getYeShuByName(id);
 		int fen = yeshu.size();
+		String  message = null;
+		if (fen % 10 != 0) {
+			fen = fen / 10 + 1;
+		} else {
+			fen = fen / 10;
+		}
+		System.out.println(fen+"++++++++++"+begin);
 		if (begin <= fen ) {
 			end = begin * 10;
 			star = end - 10;
-			String id = request.getParameter("i_id");
 			List<T_food> ye = footservice.getFenByName(id, star, end);
 			System.out.println(ye);
 			
+			jsonObject.put("ye", ye);
+			jsonObject.put("fen", fen);
+			jsonArray.add(jsonObject);
+			
+			PrintWriter out = response.getWriter();
+			out.println(jsonArray);
+			out.close();
 		}else{
-			System.out.println("1111111111");
+			message = "已经是末尾了";
 		}
+		jsonObject.put("message", message);
+		jsonArray.add(jsonObject);
+		PrintWriter out = response.getWriter();
+		out.println(jsonArray);
+		out.close();
 		
 	}
 

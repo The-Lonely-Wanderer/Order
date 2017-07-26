@@ -113,7 +113,7 @@ function dianxia() {
 //	alert(fen+"二")
 //	$("#xiayiye").html(fen);
 	var i_id = $("#shangjianame").val();
-	alert(i_id+"二")
+//	alert(i_id+"二")
 	$.ajax({
 		type : "post",
 		url : "xiayiye.action",
@@ -121,7 +121,43 @@ function dianxia() {
 		data : {
 			i_id : i_id
 			},
-		success : function(alist) {
+		success : function(ye) {
+			var json = jQuery.parseJSON(ye);
+			var list = json[0].gradelist;
+			var fen = json[0].fen;
+			var message = json[0].message;
+			
+			if (message!=null) {
+				alert(message);
+			}
+			var str = "";
+			for ( var i in list) {
+				str += "<div id='banner' ><img style='width:100%;height:50%;' src='images/foodimage/"
+					+ list[i].photo
+					+ "'/><p>名称:"
+					+ list[i].foodname
+					+ "</p><p>描述:"
+					+ list[i].foodinfo
+					+ "</p><p>价格:<font style='color:red;'>"
+					+ list[i].price
+					+ "</font></p>"
+					+ "<span style='display:block;cursor:pointer;width:73px ;height:25px;border: 1px inset red;background-color: #D8891E;' id='"
+					+ list[i].id
+					+ "' onclick=look('"
+					+ list[i].id
+					+ "');>加入购物车</span></div>"
+				}
+			alert("+++++++++++++++++++++++++++++++++++++++++++++++");
+			$("#shangpin").html("<div style='width:900px;height:500px;'>"
+				+ str
+				+ "<div align='center'><div style='color:red;width:380px;'>"
+				+ "<p class='shang' style='display:block;cursor:pointer;width:72px;height:23px;border:2px solid red;background-color:#E18D17;'"
+				+ " onclick=dianshang()>上一页</p><b id = 'fenye'><<共:"
+				+fen
+				+"页>></b>"
+				+ "<p class='xia' style='display:block;cursor:pointer;width:72px;height:23px;border:2px solid red;background-color:#E18D17;'"
+				+ " onclick=dianxia()>下一页</p>"
+				+ "</div></div></div>");
 		}
 
 	});
