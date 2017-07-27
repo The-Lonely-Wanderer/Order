@@ -22,6 +22,7 @@ import com.Indent.service.OrderService;
 import com.Indent.service.ShoppService;
 import com.Indent.service.UserService;
 import com.Indent.until.Translate;
+import com.Indent.vo.T_admin;
 import com.Indent.vo.T_food;
 import com.Indent.vo.T_order;
 import com.Indent.vo.T_user;
@@ -96,6 +97,7 @@ public class OrderController {
 		response.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		t_user = (T_user) session.getAttribute("t_user");
+
 		if (t_user != null) {
 			String id = request.getParameter("id");
 			T_food m_Food = footservice.getOneByName(id);
@@ -116,10 +118,6 @@ public class OrderController {
 				int tiao = user.size();
 				jsonObject.put("tiao", tiao);
 				jsonArray.add(jsonObject);
-
-				PrintWriter out = response.getWriter();
-				out.println(jsonArray);
-				out.close();
 
 			} else {
 				message = "添加失败";
@@ -144,14 +142,19 @@ public class OrderController {
 		return null;
 	}
 
+	@Resource
+	private T_admin t_admin;
+
 	// 登陆成功后从个人信息跳到主页面
 	@RequestMapping("/Index.action")
 	public String Index(HttpServletRequest request, HttpServletResponse response, Model model) {
 		// System.out.println("1232321342421");
+
 		HttpSession session = request.getSession();
 		t_user = (T_user) session.getAttribute("t_user");
 		// System.out.println(t_user+"对像");
 		String name = t_user.getUsername();
+
 		// System.out.println(name);
 		model.addAttribute("name", name);
 		// request.getParameter("");
@@ -240,6 +243,7 @@ public class OrderController {
 		out.println(jsonArray);
 		out.close();
 	}
+
 
 	// 上一页分页功能
 	@RequestMapping("/fenyeshang.action")
@@ -349,4 +353,5 @@ public class OrderController {
 
 	}
 
-}
+		
+	}

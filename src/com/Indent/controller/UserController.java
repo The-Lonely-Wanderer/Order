@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.Indent.service.MessageService;
 import com.Indent.service.OrderService;
 import com.Indent.service.UserService;
 import com.Indent.until.Translate;
 import com.Indent.vo.T_food;
+import com.Indent.vo.T_message;
 import com.Indent.vo.T_order;
 import com.Indent.vo.T_user;
 import com.alibaba.fastjson.JSONArray;
@@ -66,7 +68,16 @@ public class UserController {
 	public void setOrderService(OrderService orderService) {
 		this.orderService = orderService;
 	}
+	@Resource
+	private MessageService messageService;
+	
+	public MessageService getMessageService() {
+		return messageService;
+	}
 
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
 	@Resource
 	private Translate tr;
 
@@ -96,11 +107,7 @@ public class UserController {
 		return new ModelAndView("UserBiao");
 	}
 
-	// 跳转用户点评页面
-	@RequestMapping("mymessage.action")
-	public ModelAndView mymessage(HttpServletRequest request, HttpServletResponse response) {
-		return new ModelAndView("mymessage");
-	}
+	
 
 	// 注册
 	@RequestMapping("/register.action")
@@ -109,7 +116,6 @@ public class UserController {
 		String tel = user.getTel();
 		String password = user.getPassword();
 		String repassword = password2;
-		System.out.println(tel);
 		ModelAndView mav = new ModelAndView();
 		if (username != null && password != "" && password.equals(repassword)) {
 			try {
@@ -133,15 +139,6 @@ public class UserController {
 		return mav;
 	}
 
-	// 跳转用户订单页面
-	// @RequestMapping("myorder.action")
-	// public ModelAndView myorder(HttpServletRequest request,
-	// HttpServletResponse response) {
-	// return new ModelAndView("myorder");
-	// }
-
-	// 登录
-
 	// 登录
 	@RequestMapping("/userlogin.action")
 	public String userlogin(@ModelAttribute("user") T_user t_user, Model model, HttpServletRequest request,
@@ -164,6 +161,8 @@ public class UserController {
 				model.addAttribute("t_user", t_user);
 				return "UserBiao";
 			} else {
+				String message="账号或密码错误";
+				model.addAttribute("message", message);
 				return "login";
 			}
 		}
@@ -177,6 +176,7 @@ public class UserController {
 			throws UnsupportedEncodingException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		t_user.setTel(request.getParameter("tel"));
 		t_user.setUsername(request.getParameter("username"));
 		t_user.setRealname(request.getParameter("realname"));
 		t_user.setSex(request.getParameter("sex"));
@@ -184,17 +184,14 @@ public class UserController {
 		t_user.setAddress(request.getParameter("address"));
 		String password = request.getParameter("password");
 		t_user.setPassword(tr.getMD5(password));
-		System.out.println(t_user);
 		if ((t_user.getUsername()) == null || "".equals(t_user.getUsername())) {
 		} else {
 			Boolean b = us.updateuser(t_user);
-			System.out.println(b);
 			t_user = us.true_updateuser(t_user);
-			if (b) {
-				String message = "修改信息成功";
-				model.addAttribute("t_user", t_user);
+			if (b) {				
+				String message = "修改信息成功,重新登陆";
 				model.addAttribute("message", message);
-				return "UserBiao";
+				return "login";
 			} else {
 				String message = "修改信息失败,请重新修改！";
 				model.addAttribute("t_user", t_user);
@@ -214,14 +211,17 @@ public class UserController {
 		System.out.println(username);
 		t_user = us.testusername(username);
 		String message = null;
+		Boolean b;
 		if (t_user != null) {
 			message = "账号已注册，请登录";
+			b=true;
 		} else {
 			message = "账号可以使用";
+			b=false;
 		}
+		jsonObject.put("b", b);
 		jsonObject.put("message", message);
 		jsonArray.add(jsonObject);
-
 		// 获得输出流
 		PrintWriter out = response.getWriter();
 		// 通过 out 对象将 jsonArray 传到前端页面
@@ -237,11 +237,15 @@ public class UserController {
 		String tel = request.getParameter("tel");
 		t_user = us.testtel(tel);
 		String message = null;
+		Boolean b;
 		if (t_user != null) {
+			b=true;
 			message = "手机号已注册，请登录";
 		} else {
+			b=false;
 			message = "手机号可以使用";
 		}
+		jsonObject.put("b", b);
 		jsonObject.put("message", message);
 		jsonArray.add(jsonObject);
 
@@ -257,11 +261,12 @@ public class UserController {
 	public void testpassword(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-
-		String tel = request.getParameter("tel");
+		HttpSession session = request.getSession();
+		t_user = (T_user) session.getAttribute("t_user");
+		String id = t_user.getId();		
 		String password = tr.getMD5(request.getParameter("password"));
 
-		t_user = us.testpassword(tel, password);
+		t_user = us.testpassword(id, password);
 		String message = null;
 		if (t_user != null) {
 			message = "密码正确";
@@ -282,7 +287,11 @@ public class UserController {
 	@RequestMapping("loginoff.action")
 	public ModelAndView loginoff(HttpServletRequest request, HttpServletResponse response, Model model)
 			throws ServletException, IOException {
-
+		HttpSession session = request.getSession();
+		t_user = (T_user) session.getAttribute("t_user");
+		t_user.setUpdateTime(new Date());
+		us.updatetime(t_user);
+		session.invalidate();
 		return new ModelAndView("login");
 	}
 
@@ -293,14 +302,45 @@ public class UserController {
 		HttpSession session = request.getSession();
 		t_user = (T_user) session.getAttribute("t_user");
 		String id = t_user.getId();
-		System.out.println(id);
-		T_food t_food = null;
 		List<T_order> order = orderService.selectmyorder(id);
-		System.out.println(order);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("myorder");
 		modelAndView.addObject("order", order);
 		return modelAndView;
 
 	}
+	// 跳转用户点评页面
+			@RequestMapping("/mymessage.action")
+			public ModelAndView mymessage(HttpServletRequest request, HttpServletResponse response) {				
+				HttpSession session = request.getSession();
+				t_user = (T_user) session.getAttribute("t_user");
+				String id = t_user.getId();				
+				List<T_message> mess= messageService.selectmymessage(id);
+				ModelAndView modelAndView = new ModelAndView();
+				modelAndView.setViewName("mymessage");
+				modelAndView.addObject("mess", mess);
+				return modelAndView;
+			}
+	//忘记密码 更新密码
+	@RequestMapping("/findpassword.action")
+	public String updatepassword(HttpServletRequest request, HttpServletResponse response,Model model) throws UnsupportedEncodingException{
+		String tel=request.getParameter("tel");
+		String username=request.getParameter("username");
+		String password=tr.getMD5(request.getParameter("password1"));
+		boolean b=us.findpassword(tel,username,password);
+		System.out.println(b);
+		if(b){
+			String message="密码设置成功，请登录！";
+			model.addAttribute("message", message);
+			return "login";
+		}else{
+			String message="密码设置失败！";
+			model.addAttribute("message", message);
+			return "login";
+		}		
+		
+	}
+	
+	
+	
 }

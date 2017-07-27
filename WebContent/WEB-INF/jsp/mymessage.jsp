@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -8,7 +10,7 @@
 <head>
 <title>外卖网【点我吧】</title>
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/userbiaojs/ajax.js"></script>
+
 <meta charset="utf-8" />
 <meta name="author" content="点我吧[admin@dianwoba.com]" />
 <meta name="description"
@@ -36,23 +38,26 @@
 	<!--头部模块-->
 	<div class="d_head d_head_40">
 		<div class="d_headBox clearfix">
-			<a href="Index.action" rel="nofollow" title="首页" class="btnOrg40">首页</a>
+			<a href="/" title="点我吧外卖网" class="logo"></a>
+
 
 			<!--右侧已登录状态-->
 			<div class="inLogin clearfix">
 				<div class="uesNameBox">
-					<a href="/ucenter/home!index.do" title="" class="uesName"
+					<a href="mymessage.action" title="" class="uesName"
 						id="uesName">${t_user.username}</a> <span class="triangle_icon"></span>
 
 					<ul class="useList" style="display: none;" id="personalListList">
 						<li><a href="myorder.action" title="">我的订单</a></li>
 						<li><a href="userbiao.action" title="">个人资料</a></li>
 						<li><a href="mymessage.action" title="">我的点评</a></li>
-						<li><a href="/j_spring_security_logout" title="">退出</a></li>
+						<li><a href="loginoff.action" title="">退出</a></li>
 					</ul>
 				</div>
-				<a> <span class="vm f14">订单监控</span>
-				</a>
+				<a href="myorder.action" onClick="_gaq.push(['_trackEvent', 'dwb','lookorder']);"  class="dib clearfix head-order-view">
+		                <span class="eye_icon vm"></span>
+		                <span class="vm f14">订单监控</span>
+		            </a>
 			</div>
 			<!--noLogin end 已登录-->
 
@@ -95,35 +100,35 @@
 					<div class="u-index-userInfo" id="user-panel">
 						<p class="u-index-loginInfo clearfix">
 							<b style="width: 500px;"><i class="u-index-uname">${t_user.username}</i>
-
-							</b> <b style="float: right; width: 230px;">上一次登录时间： <i>${t_user.loginTime}</i>
-
+							</b> <b style="float: right; width: 230px;">上一次登录时间： <fmt:formatDate value="${t_user.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 							</b>
 						</p>
-						<!--订单管理-->
-						<div class='u-comment'>
-							<h2 class="moudleH2">我的点评</h2>
-							<div class='tableData' id="user_dianpinglist">
-								<table class="tableStye">
-									<thead>
-										<tr>
-											<th class='first'>订单编号</th>
-											<th>菜品</th>
-											<th>下单时间</th>
-											<th>评价</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td class='first'><a href="#">dwb131125-1553581806</a></td>
-											<td><a href="#">快客便利店</a></td>
-											<td>1013-11-21 15:21:21</td>
-											<td><a href="#">立即点评</a></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<div class='u-baseInfo'>
+							<h2 class='moudleH2'>我的订单</h2>
+							<div class='u-base-msn'>
+								<!--数据表格-->
+								<a name="order-list" id="order-list"></a>
 
+								<table class="u-order-dl">
+									<tr class="f-cb f14">
+										<th class="fl u-order-th-shop tc">菜品</th>
+										<th class="fl w140 tc">时间</th>
+										<th class="fl w140 tc rel">评价</th>
+										<th class="fl w140 tc">操作</th>
+									</tr>
+										<c:forEach items="${mess}" var="mess">									
+										<tr>						
+											<td class="fl u-order-th-shop tc">${mess.foodname}</td>
+											
+											<td class="fl w140 tc"><fmt:formatDate value="${mess.time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+											<td class="fl w140 tc rel" readonly="readonly" id="content">${mess.content}</td>
+											<td class="fl w140 tc"><input type="button"value="评价"id="contentbutton"/></td> 
+										</tr>										
+									</c:forEach>
+									
+								</table>
+
+							</div>
 						</div>
 					</div>
 				</div>
@@ -226,4 +231,18 @@
 					</div>
 				</div>
 </body>
+
+<script type="text/javascript">
+$("#uesName").hover(function(){
+	$("#personalListList").css("display","block")
+});
+
+$("#contentbutton").click(function(){
+	document.getElementById("content").style.backgroundColor = "red";
+	document.getElementById("content").readOnly = false;
+	
+})
+
+
+</script>
 </html>

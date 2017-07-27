@@ -4,11 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
 
 import com.Indent.dao.T_foodMapper;
 import com.Indent.vo.T_food;
@@ -93,5 +88,6 @@ public class FoodService {
 		return t_foodMapper.selectByName(foodname);
 	}
 
-	
+
 }
+

@@ -511,7 +511,8 @@ public class LoginduoController {
 	@RequestMapping(value = "/OrderManager.action")
 	public ModelAndView OrderManager(HttpServletRequest request, HttpServletResponse response) {
 
-		List<T_order> t_orderlist = orderService.selectByAll();// 商家id和时间
+		List<T_order> t_orderlist = orderService.selectByAll();
+		System.out.println(t_orderlist);
 		ModelAndView modelAndView = new ModelAndView("OrderManager");
 		if (t_orderlist.size() > 0) {
 			modelAndView.setViewName("OrderManager");

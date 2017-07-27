@@ -19,7 +19,7 @@
 .formList .error {
 	font-size: 13px;
 }
-}
+
 </style>
 <link rel="stylesheet" href="css/3.0/zxx.lib.min.css" />
 </head>
@@ -96,7 +96,7 @@
 						type="hidden" name="userRegisterDto.cityid" value="1">
 					<h2>注册</h2>
 					<ul class="registerList formList inputBox">
-						<li class="clearfix">
+						<li class="clearfix" style="margin-bottom: 25px">
 							<div class="con clearfix">
 								<div class="conBox clearfix rel">
 									<input type="text" name="username" placeholder="请输入用户名"
@@ -104,7 +104,7 @@
 								</div>
 							</div>
 						</li>
-						<li class="clearfix">
+						<li class="clearfix" style="margin-bottom: 25px">
 							<div class="con clearfix">
 								<div class="conBox clearfix rel">
 									<input type="text" name="tel" placeholder="请输入手机号" id="tel"
@@ -113,7 +113,7 @@
 							</div>
 						</li>
 
-						<li class="clearfix">
+						<li class="clearfix" style="margin-bottom: 25px">
 							<div class="con clearfix">
 								<div class="conBox clearfix">
 									<input type="password" name="password" placeholder="请设置密码"
@@ -122,7 +122,7 @@
 								</div>
 							</div>
 						</li>
-						<li class="clearfix">
+						<li class="clearfix" style="margin-bottom: 25px">
 							<div class="con clearfix">
 								<div class="conBox clearfix">
 									<input type="password" name="password2" placeholder="确认密码"
@@ -217,10 +217,24 @@
 						// 将数据转换成json对象
 						var json = jQuery.parseJSON(message);
 						// 从json对象中获取对应的参数
+						var b = Boolean(json[0].b);
 						var messages = json[0].message;
+						
+						// 设定font标签的初始颜色
+						var fontcolor = "green";
+						// 如果用户名被使用，则将font标签颜色设置为红色
+						if (b) {
+							fontcolor = "red";
+							$("#registbutton").attr("disabled", true); 
+						}else{
+							$("#registbutton").attr("disabled", false); 
+						}
+						// 编写font标签代码
+						var fonthtml = "<font color =" + fontcolor
+						+ " >" + messages + "</font>";
 						// 在 usernamespan 标签中添加 font 标签
 						$("#usernamespan").show();
-						$("#usernamespan").html(messages);
+						$("#usernamespan").html(fonthtml);
 					},
 					error: function(data) {
 						alert('出错了');
@@ -256,10 +270,24 @@
 							// 将数据转换成json对象
 							var json = jQuery.parseJSON(message);
 							// 从json对象中获取对应的参数
+							var b = Boolean(json[0].b);
 							var messages = json[0].message;
+							
+							// 设定font标签的初始颜色
+							var fontcolor = "green";
+							// 如果用户名被使用，则将font标签颜色设置为红色
+							if (b) {
+								fontcolor = "red";
+								$("#registbutton").attr("disabled", true); 
+							}else{
+								$("#registbutton").attr("disabled", false); 
+							}
+							// 编写font标签代码
+							var fonthtml = "<font color =" + fontcolor
+							+ " >" + messages + "</font>";
 							// 在 usernamespan 标签中添加 font 标签
 							$("#telspan").show();
-							$("#telspan").html(messages);
+							$("#telspan").html(fonthtml);
 						},
 						error : function(data) {
 							alert('出错了');

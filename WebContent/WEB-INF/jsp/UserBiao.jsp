@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -41,7 +42,7 @@
 			<!--右侧已登录状态-->
 			<div class="inLogin clearfix">
 				<div class="uesNameBox">
-					<a href="/ucenter/home!index.do" title="" class="uesName"
+					<a href="userbiao.action" title="" class="uesName"
 						id="uesName">${t_user.username}</a> <span class="triangle_icon"></span>
 
 					<ul class="useList" style="display: none;" id="personalListList">
@@ -51,8 +52,10 @@
 						<li><a href="loginoff.action" title="">退出</a></li>
 					</ul>
 				</div>
-				<a> <span class="vm f14">订单监控</span>
-				</a>
+				<a href="myorder.action" onClick="_gaq.push(['_trackEvent', 'dwb','lookorder']);"  class="dib clearfix head-order-view">
+		                <span class="eye_icon vm"></span>
+		                <span class="vm f14">订单监控</span>
+		            </a>
 			</div>
 			<!--noLogin end 已登录-->
 
@@ -96,8 +99,8 @@
 						<p class="u-index-loginInfo clearfix">
 							<b style="width: 500px;"><i class="u-index-uname">${t_user.username}</i>
 
-							</b> <b style="float: right; width: 230px;">上一次登录时间： <i>${t_user.loginTime}</i>
-
+							</b> <b style="float: right; width: 230px;">上一次登录时间： 
+								<fmt:formatDate value="${t_user.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
 							</b>
 						</p>
 						<div class='u-baseInfo'>
@@ -352,6 +355,9 @@
 		$("#updateuserform").submit();
 
 	});
+	$("#uesName").hover(function(){
+		$("#personalListList").css("display","block")
+	})
 </script>
 
 
