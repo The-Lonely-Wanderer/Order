@@ -3,7 +3,6 @@ package com.Indent.vo;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +16,7 @@ public class T_order {
 	private String id;
 //	@Autowired
 	private List<T_shopp> t_shopp;
+	private T_food t_food;
 	private T_user	t_user;
 	
 	public T_user getT_user() {
@@ -221,6 +221,14 @@ public class T_order {
 		this.t_shopp = t_shopp;
 	}
 
+	public T_food getT_food() {
+		return t_food;
+	}
+
+	public void setT_food(T_food t_food) {
+		this.t_food = t_food;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -228,11 +236,12 @@ public class T_order {
 		result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((prices == null) ? 0 : prices.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((t_food == null) ? 0 : t_food.hashCode());
 		result = prime * result + ((t_shopp == null) ? 0 : t_shopp.hashCode());
 		result = prime * result + ((t_user == null) ? 0 : t_user.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -260,15 +269,15 @@ public class T_order {
 				return false;
 		} else if (!prices.equals(other.prices))
 			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
 		if (status == null) {
 			if (other.status != null)
 				return false;
 		} else if (!status.equals(other.status))
+			return false;
+		if (t_food == null) {
+			if (other.t_food != null)
+				return false;
+		} else if (!t_food.equals(other.t_food))
 			return false;
 		if (t_shopp == null) {
 			if (other.t_shopp != null)
@@ -285,21 +294,27 @@ public class T_order {
 				return false;
 		} else if (!userId.equals(other.userId))
 			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "T_order [id=" + id + ", t_shopp=" + t_shopp + ", t_user=" + t_user + ", username=" + username
-				+ ", prices=" + prices + ", status=" + status + ", createTime=" + createTime + ", userId=" + userId
-				+ "]";
+		return "T_order [id=" + id + ", t_shopp=" + t_shopp + ", t_food=" + t_food + ", t_user=" + t_user
+				+ ", username=" + username + ", prices=" + prices + ", status=" + status + ", createTime=" + createTime
+				+ ", userId=" + userId + "]";
 	}
 
-	public T_order(String id, List<T_shopp> t_shopp, T_user t_user, String username, Double prices, String status,
-			Date createTime, String userId) {
+	public T_order(String id, List<T_shopp> t_shopp, T_food t_food, T_user t_user, String username, Double prices,
+			String status, Date createTime, String userId) {
 		super();
 		this.id = id;
 		this.t_shopp = t_shopp;
+		this.t_food = t_food;
 		this.t_user = t_user;
 		this.username = username;
 		this.prices = prices;
@@ -308,5 +323,5 @@ public class T_order {
 		this.userId = userId;
 	}
 
-
+	
 }
