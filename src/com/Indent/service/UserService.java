@@ -108,4 +108,9 @@ public class UserService {
 		
 		return t_userMapper.findpassword(tel,username,password);
 	}
+
+	public Boolean updatenewpassword(T_user t_user) {
+		
+		return t_userMapper.updatenewpassword(t_user);
+	}
 }

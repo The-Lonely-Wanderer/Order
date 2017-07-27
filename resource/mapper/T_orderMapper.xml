@@ -4,16 +4,12 @@
 	<resultMap id="BaseResultMap" type="com.Indent.vo.T_order">
 
 		<id column="id" property="id" jdbcType="VARCHAR" />
-
 		<result column="prices" property="prices" jdbcType="DOUBLE" />
 		<result column="status" property="status" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-		<result column="realname" property="realname" jdbcType="VARCHAR" />
-		<collection column="t_food" property="t_food" ofType="com.Indent.vo.T_food">
-			<id property="id" column="id" />
-			<result property="foodname" column="foodname" />
-		</collection>
+		<result column="realname" property="realname" jdbcType="VARCHAR" />		
 	</resultMap>
+	
 	<resultMap id="BaseResultMap2" type="com.Indent.vo.T_order">
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="prices" property="prices" jdbcType="DOUBLE" />
@@ -24,6 +20,16 @@
 			<result property="foodname" column="foodname" javaType="String" jdbcType="VARCHAR" />
 			<result property="price" column="price" javaType="DOUBLE" jdbcType="DOUBLE" />
 		</collection>
+	</resultMap>
+	<resultMap id="BaseResultMap3" type="com.Indent.vo.T_order">
+
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="prices" property="prices" jdbcType="DOUBLE" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />		
+		<result property="foodname" column="foodname"  jdbcType="VARCHAR" />
+		<result property="price" column="price" jdbcType="DOUBLE" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -144,9 +150,10 @@
 	</update>
 
 	<select id="selectmyorder" parameterType="com.Indent.vo.T_order"
-		resultMap="BaseResultMap">
-		select f.foodname,o.* from t_order o,t_food f
-		where o.id=f.id and o.user_id=#{id}
+		resultMap="BaseResultMap3">
+		 select a.id,a.prices,a.status,a.create_time,c.foodname,c.price 
+		 from t_order a,t_shopp c 
+		 where a.id=c.order_id and a.user_id=#{id};
 	</select>
 
 </mapper>

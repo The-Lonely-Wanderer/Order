@@ -95,5 +95,7 @@ public interface T_userMapper {
 
 	boolean findpassword(String tel, String username, String password);
 
+	Boolean updatenewpassword(T_user t_user);
+
 
 }
