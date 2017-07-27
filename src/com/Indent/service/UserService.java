@@ -103,4 +103,9 @@ public class UserService {
 		t_userMapper.updatetime(t_user);
 		
 	}
+
+	public boolean findpassword(String tel, String username, String password) {
+		
+		return t_userMapper.findpassword(tel,username,password);
+	}
 }

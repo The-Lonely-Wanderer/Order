@@ -400,14 +400,14 @@ img {
     z-index: 3;
     right: 2px;
     top: -5px;
-    height: 11px;
+    height: 16px;
     padding: 1px 2px;
     border: 1px solid #B61D1D;
     overflow: hidden;
     color: #FFF;
     font: 11px/11px verdana;
     text-align: center;
-    min-width: 11px;
+    min-width: 16px;
     border-radius: 10px;
     background-color: #CC6060;
     background-image: linear-gradient(to bottom, #CC6060 0px, #B61D1D 100%);

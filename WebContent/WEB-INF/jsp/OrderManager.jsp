@@ -27,10 +27,11 @@
 	cursor: pointer;
 	border-radius: 10px;
 	overflow: hidden;
+	transition: 0.2s;
 }
 
 .order:hover {
-	transfrom: scale(1.02);
+	transform: scale(1.01);
 }
 
 .orderid {
@@ -49,9 +50,10 @@
 	margin-right: 10px;
 	border-radius: 5px;
 }
-.orderm{
-	width:100%;
-	height:150px;
+
+.orderm {
+	width: 100%;
+	border-top:1px dotted #1e90ff;
 }
 </style>
 </head>
@@ -62,29 +64,36 @@
 			${message}
 			<div class="content-tab">
 
-				<c:forEach var="t_orderlist" items="${t_orderlist}">
+				<c:forEach var="t_orderlists" items="${t_orderlist}">
 					<div class="order">
 						<p class="orderid">
 							<span style="margin-left: 5px;">訂餐用戶:</span>
-							&nbsp;&nbsp;${t_orderlist.id}
-							<span style="float: right; margin-right: 10px">
-								<c:choose>
-									<c:when test="${t_orderlist.status == 1}">正在处理</c:when>
-									<c:when test="${t_orderlist.status == 0}">待处理</c:when>
-									<c:when test="${t_orderlist.status == 2}">配送中</c:when>
+							&nbsp;&nbsp;${t_orderlists.username} <span
+								style="float: right; margin-right: 10px"> <c:choose>
+									<c:when test="${t_orderlists.status == 1}">正在处理</c:when>
+									<c:when test="${t_orderlists.status == 0}">待处理</c:when>
+									<c:when test="${t_orderlists.status == 2}">配送中</c:when>
 								</c:choose></span>
 						</p>
 						<div class="banner">
-							<p>价格:${t_orderlist.prices}</p>
+							<p>价格:${t_orderlists.prices}</p>
 
-							<p class="orderm" ></p>
-
-							<p>下单时间:
-								<fmt:formatDate value="${t_orderlist.createTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+							<p class="orderm">
+								<c:forEach var="foodlist" items="${t_orderlists.t_shopp}">
+									<p>
+										<span style="width:100px;height:20px;">${foodlist.foodname}</span><span style="width:100px;height:20px;float:left;border-left:1px solid rgba(0,0,0,0.2);">${foodlist.price}</span>
+									</p>
+<!-- 																订单详细内容 部分 -->
+								</c:forEach>
 							</p>
 							<p>
-								<span>訂單號:</span>&nbsp;&nbsp;${t_orderlist.userId} 
-								<c:if test="${t_orderlist.status <2}">
+								下单时间:
+								<fmt:formatDate value="${t_orderlists.createTime}"
+									pattern="yyyy-MM-dd HH:mm:ss" />
+							</p>
+							<p>
+								<span>訂單號:</span>&nbsp;&nbsp;${t_orderlists.id}
+								<c:if test="${t_orderlists.status <2}">
 									<select class="selec">
 										<option value="0">待处理</option>
 										<option value="1">正在处理</option>

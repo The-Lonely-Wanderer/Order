@@ -116,7 +116,6 @@ public class UserController {
 		String tel = user.getTel();
 		String password = user.getPassword();
 		String repassword = password2;
-		System.out.println(tel);
 		ModelAndView mav = new ModelAndView();
 		if (username != null && password != "" && password.equals(repassword)) {
 			try {
@@ -185,7 +184,6 @@ public class UserController {
 		t_user.setAddress(request.getParameter("address"));
 		String password = request.getParameter("password");
 		t_user.setPassword(tr.getMD5(password));
-		System.out.println(t_user);
 		if ((t_user.getUsername()) == null || "".equals(t_user.getUsername())) {
 		} else {
 			Boolean b = us.updateuser(t_user);
@@ -224,7 +222,6 @@ public class UserController {
 		jsonObject.put("b", b);
 		jsonObject.put("message", message);
 		jsonArray.add(jsonObject);
-		System.out.println(jsonArray);
 		// 获得输出流
 		PrintWriter out = response.getWriter();
 		// 通过 out 对象将 jsonArray 传到前端页面
@@ -319,10 +316,31 @@ public class UserController {
 				t_user = (T_user) session.getAttribute("t_user");
 				String id = t_user.getId();				
 				List<T_message> mess= messageService.selectmymessage(id);
-				System.out.println(mess);
 				ModelAndView modelAndView = new ModelAndView();
 				modelAndView.setViewName("mymessage");
 				modelAndView.addObject("mess", mess);
 				return modelAndView;
 			}
+	//忘记密码 更新密码
+	@RequestMapping("/findpassword.action")
+	public String updatepassword(HttpServletRequest request, HttpServletResponse response,Model model) throws UnsupportedEncodingException{
+		String tel=request.getParameter("tel");
+		String username=request.getParameter("username");
+		String password=tr.getMD5(request.getParameter("password1"));
+		boolean b=us.findpassword(tel,username,password);
+		System.out.println(b);
+		if(b){
+			String message="密码设置成功，请登录！";
+			model.addAttribute("message", message);
+			return "login";
+		}else{
+			String message="密码设置失败！";
+			model.addAttribute("message", message);
+			return "login";
+		}		
+		
+	}
+	
+	
+	
 }

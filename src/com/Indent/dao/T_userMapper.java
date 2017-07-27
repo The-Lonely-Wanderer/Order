@@ -93,5 +93,7 @@ public interface T_userMapper {
 
 	void updatetime(T_user t_user);
 
+	boolean findpassword(String tel, String username, String password);
+
 
 }
