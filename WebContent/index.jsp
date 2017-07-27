@@ -305,10 +305,10 @@ color:#0089dc;
 				</div>
 			</div>
 			<div class="foot-kf fr pt10">
-				<a class="foot-kf-btn poi rel db" href="auth/login.do"></a>
+				<a class="foot-kf-btn poi rel db" href="mqqwpa://im/chat?chat_type=wpa&uin=2679571084&version=1&src_type=web&web_src=bjhuli.com"></a>
 				<div class="pt15">
 					<span class="dib vm">关注我们：</span> <a
-						href="http://weibo.com/dianwoba" class="dib vm foot-sina ml15"></a>
+						href="http://weibo.com/3861273425/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" class="dib vm foot-sina ml15"></a>
 					<a href="javascript:void(0);" class="dib vm foot-wx ml15 abs">
 						<div class="foot-kf-ewm abs dn"></div>
 					</a>
@@ -326,9 +326,7 @@ color:#0089dc;
 				href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010302002657"
 				style="display: inline-block; text-decoration: none; height: 20px; line-height: 20px;"><img
 				src="images/web/zjgs.png" style="float: left;" />
-				<p
-					style="float: left; height: 20px; line-height: 20px; margin: 0px 0px 0px 5px; color: #939393;">浙公网安备
-					33010302002657号</p> </a>
+				<p style="float: left; height: 20px; line-height: 20px; margin: 0px 0px 0px 5px; color: #939393;">浙公网安备 33010302002657号</p> </a>
 		</div>
 	</div>
 	

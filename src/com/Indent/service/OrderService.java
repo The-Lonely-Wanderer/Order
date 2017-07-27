@@ -56,4 +56,9 @@ public class OrderService{
 		// TODO Auto-generated method stub
 		return t_orderMapper.selectmyorder(id);
 	}
+
+	public List<T_order> selectByAllByName(String username) {
+		// TODO Auto-generated method stub
+		return t_orderMapper.selectByAllByName(username);
+	}
 }

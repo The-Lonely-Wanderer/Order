@@ -20,7 +20,9 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.Indent.vo.T_user;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import sun.tools.jar.resources.jar;
 
 import com.Indent.service.AdminService;
 import com.Indent.service.CatelogService;
@@ -94,7 +98,7 @@ public class LoginduoController {
 		T_admin t_admins = adminService.selectByobject(t_admin);
 		ModelAndView modelAndView = new ModelAndView();
 		if (t_admins != null) {
-			
+
 			id = t_admins.getId();
 			modelAndView.setViewName("index");
 			modelAndView.addObject("t_admins", t_admins);
@@ -265,13 +269,10 @@ public class LoginduoController {
 	public void deleuser(String id, HttpServletRequest request, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		int falge = us.deleteByPrimaryKey(id);
-		System.out.println(id);
 		if (falge > 0) {
-			System.out.println("falge:" + falge);
 			List<T_user> userlist = us.selectAll();
 			// modelAndView.addObject("userlist", userlist);
 			// modelAndView.setViewName("member");
-			System.out.println(userlist);
 			jsonObject.put("userlist", userlist);
 			jsonArray.add(jsonObject);
 			PrintWriter out;
@@ -426,16 +427,18 @@ public class LoginduoController {
 		}
 		return modelAndView;
 	}
+
 	// 菜品查询
 	@RequestMapping("selectfood.action")
-	public ModelAndView selectfood(String foodname,HttpServletRequest request, HttpServletResponse response){
-	List<T_food> foodlist=foodService.selectByName(foodname);
-		ModelAndView modelAndView=new ModelAndView();
+	public ModelAndView selectfood(String foodname, HttpServletRequest request, HttpServletResponse response) {
+		List<T_food> foodlist = foodService.selectByName(foodname);
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("dishmanager");
 		modelAndView.addObject("foodlist", foodlist);
-		modelAndView.addObject("size",foodlist.size());
+		modelAndView.addObject("size", foodlist.size());
 		return modelAndView;
 	}
+
 	// 留言管理
 	@Autowired
 	private MessageService messageService;
@@ -452,9 +455,8 @@ public class LoginduoController {
 	public ModelAndView lygl() {
 
 		List<T_message> messageMappers = messageService.selectByAll();
-		System.out.println(messageMappers);
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		if (messageMappers.size() > 0) {
 			modelAndView.setViewName("lygl");
 			modelAndView.addObject("messageMappers", messageMappers);
@@ -512,7 +514,6 @@ public class LoginduoController {
 	public ModelAndView OrderManager(HttpServletRequest request, HttpServletResponse response) {
 
 		List<T_order> t_orderlist = orderService.selectByAll();
-		System.out.println(t_orderlist);
 		ModelAndView modelAndView = new ModelAndView("OrderManager");
 		if (t_orderlist.size() > 0) {
 			modelAndView.setViewName("OrderManager");
@@ -525,7 +526,37 @@ public class LoginduoController {
 
 		return modelAndView;
 	}
-	
+
+	// 订单状态修改
+	@RequestMapping("/changestatus.action")
+	public void changestatus(T_order t_order,HttpServletRequest request,HttpServletResponse response) {
+		int flage=orderService.updateByPrimaryKeySelective(t_order);
+		jsonObject.put("flage",flage);
+		jsonArray.add(jsonObject);
+		try {
+			PrintWriter out=response.getWriter();
+			out.println(jsonArray);
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//订单查询
+	@RequestMapping("/selectorder.action")
+	public ModelAndView selectorder(String username){
+		List<T_order> t_orderlist=orderService.selectByAllByName(username);
+		ModelAndView modelAndView=new ModelAndView();;
+		if(t_orderlist.size()>0){
+			modelAndView.addObject("t_orderlist", t_orderlist);
+			modelAndView.addObject("size",t_orderlist.size());
+			modelAndView.setViewName("OrderManager");
+		}else{
+			modelAndView.addObject("message","该用户目前没有订单");
+			modelAndView.setViewName("OrderManager");
+		}
+		return modelAndView;
+	}
 	// 管理員信箱
 
 	@Resource

@@ -56,4 +56,6 @@ public interface T_orderMapper {
 	List<T_order> selectByAll();//更改成id查询
 
 	List<T_order> selectmyorder(String id);
+
+	List<T_order> selectByAllByName(String username);
 }
