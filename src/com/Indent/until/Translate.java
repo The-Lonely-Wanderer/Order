@@ -3,11 +3,13 @@ package com.Indent.until;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
+
 @Component
 public class Translate {
 	// 用于返回已加密的字符串
@@ -39,5 +41,17 @@ public class Translate {
 		string = string.replaceAll("-", "");
 		return string;
 	}
+
+	public String time(Date dd) {
+		Date date = new Date();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = format.format(date);
+		
+		
+		return time;
+
+	}
+
+
 
 }

@@ -62,4 +62,7 @@ public interface T_foodMapper {
 	List<T_food> getYeShuByName(String id);
 	//下一页
 	List<T_food> getFenByName(String id, int begin, int end);
+
+	List<T_food> selectByName(String foodname);
+
 }

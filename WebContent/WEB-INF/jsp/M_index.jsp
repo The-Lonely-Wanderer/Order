@@ -20,6 +20,10 @@
 <link href="css/buttons.css" rel="stylesheet" />
 <link href="css/flat.css" rel="stylesheet" />
 <link href="css/font-awesome.css" rel="stylesheet" />
+<!-- 支付的css连接 -->
+<link rel="stylesheet" type="text/css"
+	href="//sp.jd.com/payment/2.0.0/css/main.css">
+
 <!-- 购物车导航栏 -->
 <link rel="stylesheet" href="css/nav.css" type="text/css">
 <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
@@ -65,10 +69,10 @@ body, html {
 	border: 2px solid #0080FF;
 	font-size: 25px;
 	z-index: 999;
-	width: 904px;
-	height: 412px;
-	left: 34%;
-	top: 50%;
+	width: 1070px;
+	height: 753px;
+	left: 28%;
+	top: 30%;
 	text-align: center;
 	margin-left: -152px !important;
 	/*FF IE7 该值为本身宽的一半 */
@@ -79,6 +83,11 @@ body, html {
 	/* FF IE7*/
 	position: absolute;
 	/*IE6*/
+}
+/* 定时器时间显示的样式 */
+#txt {
+	border: none;
+	width: 27px;
 }
 </style>
 </head>
@@ -100,7 +109,7 @@ body, html {
 					<a href="UserBiao.jsp" rel="nofollow"
 						onClick="_gaq.push(['_trackEvent', 'dwb','register']);" title=""
 						class="btnOrg40">用户:${t_user.username}</a>
-						<!--  <a href="register.jsp"
+					<!--  <a href="register.jsp"
 						rel="nofollow"
 						onClick="_gaq.push(['_trackEvent', 'dwb','register']);" title=""
 						class="btnOrg40">用户注册</a> <a href="adminlogin.action"
@@ -195,7 +204,6 @@ close"></span>
 						</h3>
 						<div class="tbar-panel-main">
 							<div class="tbar-panel-content 
-
 J-panel-content">
 								<div id="J-cart-tips" class="tbar-tipbox hide">
 									<div class="tip-
@@ -217,10 +225,7 @@ inner">
 
 											</div>
 											<!-- 购物车显示商品的功能 -->
-											<div class="jtc-item-goods" id="gou">
-
-												
-											</div>
+											<div class="jtc-item-goods" id="gou"></div>
 
 
 										</div>
@@ -234,23 +239,26 @@ footer">
 							<div class="tbar-checkout">
 								<div class="jtc-number">
 
-									<strong class="J-count"><b id = "length"></b></strong>件商品
+									<strong class="J-count"><b id="length"></b></strong>件商品
 								</div>
 								<div class="jtc-sum">
-									共 计： <strong class="J-total">¥<b id="zong"></b></strong>
+									共 计： <strong class="J-total">¥<b><span id="zong"></span></b></strong>
+									<!-- 共 计： <strong class="J-total">¥<b id="zong"><input t></b></strong> -->
 								</div>
-								<a class="jtc-btn J-btn" href="#none" target="_blank">去购物车结算</a>
+								<!-- <p class="jtc-btn J-btn" id="shopp">去购物车结算</p> -->
+								<a href="javascript:showDivFun()" class="jtc-btn J-btn"
+									id="shopp" onClick="timedCount()">去购物车结算</a>
 							</div>
 						</div>
 					</div>
+
 
 					<div style="visibility: hidden;" data- name="follow"
 						class="J-content toolbar-panel tbar-panel-follow">
 						<h3 class="tbar-panel-header J-panel-
 
 header">
-							<a href="#" target="_blank" class="title"> <i></i> 
-							<!-- 商品查询的点击事件 -->
+							<a href="#" target="_blank" class="title"> <i></i> <!-- 商品查询的点击事件 -->
 								<em class="title">我的关注</em>
 							</a> <span class="close-panel J-close"></span>
 						</h3>
@@ -367,6 +375,112 @@ hide">0</span>
 	</div>
 
 	<script type="text/javascript" src='js/nav.js'></script>
+
+
+	<!-- 弹出支付的div框 -->
+	<div id="popDiv" class="mydiv" style="display: none;">
+		<div align="right"
+			style="padding: 2px; z-index: 2000; font-size: 12px; cursor: pointer; position: absolute; right: 0;"
+			onclick="closeDivFun()">
+			<span
+				style="border: 1px solid #000; width: 12px; height: 12px; line-height: 12px; text-align: center; display: block; background-color: #FFFFFF; left: -20px;">×</span>
+		</div>
+
+
+
+
+		<!-- 支付窗口的排版 -->
+
+		<div class="main">
+			<div class="w">
+				<div class="order clearfix order-noQrcode">
+					<div class="o-left">
+						<h3 class="o-title">
+							订单提交成功，请尽快付款！订单号：<b id="dingdanhao"></b>
+						</h3>
+						<p class="o-tips" id="deleteOrderTip"></p>
+					</div>
+					<div class="o-right">
+						<div class="o-price">
+							<em>应付金额</em><strong><strong class="J-total">¥<b><span
+										id="zongjq"></span></b></strong></strong><em>元</em>
+						</div>
+					</div>
+				</div>
+
+				<div class="payment">
+					<div class="pay-weixin">
+						<div class="p-w-hd">微信支付</div>
+						<div class="p-w-bd" style="position: relative">
+							<div class="j_weixinInfo"
+								style="position: absolute; top: -36px; left: 130px;">
+								距离二维码过期还剩<span class="j_qrCodeCountdown font-bold font-red"><input type="text" id="txt" style="color:#FF0000;"/></span>秒，过期后请刷新页面重新获取二维码。
+							</div>
+							<div class="p-w-box">
+								<div class="pw-box-hd">
+									<img id="weixinImageURL"
+										src="//misc.360buyimg.com/lib/img/e/blank.gif" width="298"
+										height="298" />
+								</div>
+								<div class="pw-retry j_weixiRetry">
+									<a class="ui-button ui-button-gray j_weixiRetryButton"
+										href="javascript:getWeixinImage2();">获取失败 点击重新获取二维码 </a>
+								</div>
+								<div class="pw-box-ft" style="height: 57px;">
+									<p>请使用微信扫一扫</p>
+									<p>扫描二维码支付</p>
+								</div>
+							</div>
+							<div class="p-w-sidebar"></div>
+						</div>
+					</div>
+					<div class="payment-change">
+						<a class="pc-wrap" onclick="window.history.go(-1)"> <i
+							class="pc-w-arrow-left">&lt;</i> <strong>选择其他支付方式</strong>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 定时器  -->
+		<script type="text/javascript">
+			var c = 60;
+			var t;
+
+			function timedCount() {
+				document.getElementById('txt').value = c
+				c = c - 1;
+
+				if (c != -1) {
+					t = setTimeout("timedCount()", 1000);
+				} else {
+					stopCount();
+				}
+
+			}
+
+			function stopCount() {
+				clearTimeout(t)
+			}
+		</script>
+
+
+
+
+
+
+		<a href="javascript:closeDivFun()">关闭窗口</a>
+	</div>
+	<script>
+		//弹出调用的方法
+		function showDivFun() {
+			document.getElementById('popDiv').style.display = 'block';
+		}
+		//关闭事件
+		function closeDivFun() {
+			document.getElementById('popDiv').style.display = 'none';
+		}
+	</script>
 
 	<!-- 友情链接 -->
 
@@ -693,6 +807,7 @@ hide">0</span>
 
 	<script src="js/Ajax/SousuoAjax.js"></script>
 	<script src="js/Ajax/ShoppAjax.js"></script>
+	<script src="js/Ajax/GouWuChe.js"></script>
 </body>
 <!-- 方便开发这快速定位到当前页面对应的jsp文件, 通过view source -->
 <!--/WEB-INF/view/home-index.jsp-->

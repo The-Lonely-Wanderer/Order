@@ -72,6 +72,7 @@ public class FoodService {
 		return t_foodMapper.getOneByName(id);
 	}
 
+
 	// 共有页数的查询
 	public List<T_food> getYeShuByName(String id) {
 		
@@ -79,8 +80,18 @@ public class FoodService {
 	}
 	//下一页
 	public List<T_food> getFenByName(String id, int begin, int end) {
+		System.out.println(id);
+		System.out.println(begin);
+		System.out.println(end);
 		
 		return t_foodMapper.getFenByName(id,begin,end);
 	}
 
+
+	public List<T_food> selectByName(String foodname) {
+		// TODO Auto-generated method stub
+		return t_foodMapper.selectByName(foodname);
+	}
+
+	
 }

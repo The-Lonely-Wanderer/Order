@@ -9,6 +9,15 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.CloseReason;
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +53,7 @@ import com.Indent.vo.T_order;
 @Controller
 // @RequestMapping(value="/hello")
 public class LoginduoController {
+
 	@Resource
 	private Translate tr;
 	@Resource
@@ -84,6 +94,7 @@ public class LoginduoController {
 		T_admin t_admins = adminService.selectByobject(t_admin);
 		ModelAndView modelAndView = new ModelAndView();
 		if (t_admins != null) {
+			
 			id = t_admins.getId();
 			modelAndView.setViewName("index");
 			modelAndView.addObject("t_admins", t_admins);
@@ -385,11 +396,11 @@ public class LoginduoController {
 
 	// 上传图片MultipartFile(value = "photo", required = false) photo,,T_food t_food
 	@RequestMapping(value = "/addfood.action")
-	public ModelAndView addfood(@RequestParam MultipartFile photo, HttpServletRequest request, HttpServletResponse response)
-			throws UnsupportedEncodingException {
+	public ModelAndView addfood(@RequestParam MultipartFile photo, HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		ModelAndView modelAndView=new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView();
 		try {
 			String path = request.getSession(true).getServletContext().getRealPath("images/foodimage");
 			String name = photo.getOriginalFilename();
@@ -400,12 +411,12 @@ public class LoginduoController {
 			t_food.setFoodinfo(request.getParameter("foodinfo"));
 			t_food.setPhoto(name);
 			t_food.setPrice(Double.parseDouble(request.getParameter("price")));
-			int i=foodService.insertSelective(t_food);
-			if(i>0){
-				List<T_food> foodlist=foodService.selectByAll();
+			int i = foodService.insertSelective(t_food);
+			if (i > 0) {
+				List<T_food> foodlist = foodService.selectByAll();
 				modelAndView.setViewName("dishmanager");
-				modelAndView.addObject("foodlist",foodlist);
-			}  
+				modelAndView.addObject("foodlist", foodlist);
+			}
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -415,7 +426,16 @@ public class LoginduoController {
 		}
 		return modelAndView;
 	}
-
+	// 菜品查询
+	@RequestMapping("selectfood.action")
+	public ModelAndView selectfood(String foodname,HttpServletRequest request, HttpServletResponse response){
+	List<T_food> foodlist=foodService.selectByName(foodname);
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.setViewName("dishmanager");
+		modelAndView.addObject("foodlist", foodlist);
+		modelAndView.addObject("size",foodlist.size());
+		return modelAndView;
+	}
 	// 留言管理
 	@Autowired
 	private MessageService messageService;
@@ -432,7 +452,9 @@ public class LoginduoController {
 	public ModelAndView lygl() {
 
 		List<T_message> messageMappers = messageService.selectByAll();
+		System.out.println(messageMappers);
 		ModelAndView modelAndView = new ModelAndView();
+		
 		if (messageMappers.size() > 0) {
 			modelAndView.setViewName("lygl");
 			modelAndView.addObject("messageMappers", messageMappers);
@@ -502,7 +524,7 @@ public class LoginduoController {
 
 		return modelAndView;
 	}
-
+	
 	// 管理員信箱
 
 	@Resource

@@ -6,7 +6,7 @@ $("document")
 					$("#gouwuche")
 							.click(
 									function() {
-										// alert("进入ajax");
+//										 alert("进入ajax");
 
 										// 调用jquery下的ajax函数
 										$
@@ -17,10 +17,8 @@ $("document")
 													url : "GouWuChe.action",
 													async : true,
 													// 为服务器返回的数据
-													success : function(
-															gradelist) {
-														var json = jQuery
-																.parseJSON(gradelist);
+													success : function(gradelist) {
+														var json = jQuery.parseJSON(gradelist);
 														var list = json[0].gradelist;
 														var money = json[0].money;
 														var lerth = json[0].i;
@@ -55,22 +53,6 @@ $("document")
 														$("#daohang").html(
 																lerth);
 
-														// "<div
-														// style='width:900px;height:500px;'>"
-														// + str
-														// + "<div
-														// align='center'><div
-														// style='color:red;width:380px;'><p
-														// class='shang'
-														// style='display:block;cursor:pointer;width:72px;height:23px;border:1px
-														// solid
-														// red;background-color:#E18D17;'
-														// >上一页</p><p
-														// class='xia'
-														// style='display:block;cursor:pointer;width:72px;height:23px;border:1px
-														// solid
-														// red;background-color:#E18D17;'
-														// >下一页</p></div></div></div>");
 													}
 												});
 									});

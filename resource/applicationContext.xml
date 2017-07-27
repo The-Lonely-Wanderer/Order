@@ -16,6 +16,9 @@
 	<bean class="org.springframework.web.servlet.ModelAndView" id="mav"></bean>
 	<bean class="com.alibaba.fastjson.JSONArray"></bean>
 	<bean class="com.alibaba.fastjson.JSONObject"></bean>
+	<bean class="java.text.SimpleDateFormat"></bean>
+	<bean class="java.util.Date"></bean>
+
 	
 	<!-- 引入配置文件 -->
 	<bean id="propertyConfig"

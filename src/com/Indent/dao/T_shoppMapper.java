@@ -14,4 +14,7 @@ public interface T_shoppMapper {
 	// 购物车点击删除按钮事件
 	int getDelectByName(String id);
 
+	//购物车更新order_id字段
+	int getGouwuche(String uuid, String tel);
+
 }

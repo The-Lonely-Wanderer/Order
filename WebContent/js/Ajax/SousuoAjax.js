@@ -123,7 +123,7 @@ function dianxia() {
 			},
 		success : function(ye) {
 			var json = jQuery.parseJSON(ye);
-			var list = json[0].gradelist;
+			var list = json[0].ye;
 			var fen = json[0].fen;
 			var message = json[0].message;
 			
@@ -147,7 +147,6 @@ function dianxia() {
 					+ list[i].id
 					+ "');>加入购物车</span></div>"
 				}
-			alert("+++++++++++++++++++++++++++++++++++++++++++++++");
 			$("#shangpin").html("<div style='width:900px;height:500px;'>"
 				+ str
 				+ "<div align='center'><div style='color:red;width:380px;'>"

@@ -83,9 +83,9 @@
 					</tr>
 					<c:forEach items="${messageMappers }" var="messageMappers">
 						<tr class="tabl">
-							<td>${messageMappers.id}</td>
-							<td>${messageMappers.userId}</td>
-							<td>${messageMappers.foodId}</td>
+							<td title="${messageMappers.id}">${messageMappers.id}</td>
+							<td>${messageMappers.username}</td>
+							<td>${messageMappers.foodname}</td>
 							<td title="${messageMappers.content}">${messageMappers.content}</td>
 							<td><fmt:formatDate value="${messageMappers.time}"
 									pattern="yyyy-MM-dd HH:mm:ss" /></td>
