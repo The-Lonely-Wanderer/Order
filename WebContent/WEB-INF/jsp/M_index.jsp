@@ -265,7 +265,7 @@ footer">
 								</div>
 								<!-- <p class="jtc-btn J-btn" id="shopp">去购物车结算</p> -->
 								<a href="javascript:showDivFun()" class="jtc-btn J-btn"
-									id="shopp" onClick="timedCount()">去购物车结算</a>
+									id="timedCount" onClick="timedCount()">去购物车结算</a>
 							</div>
 						</div>
 					</div>

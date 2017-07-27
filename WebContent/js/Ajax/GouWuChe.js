@@ -1,11 +1,11 @@
 $("document").ready(
 	function() {
-		$("#shopp").click(
+		$("#timedCount").click(
 			function() {
 //				var z_id = $("#zong").val();
 				//拿页面b标签或者span标签的方法
 				var z_id = $(".jtc-sum b").eq(0).text();
-//						alert(z_id);
+						alert(z_id);
 					$.ajax({
 						// 发送请求的方式 get post
 						type : "post",
@@ -21,6 +21,7 @@ $("document").ready(
 					var json = jQuery.parseJSON(t_order);
 					var dingdanid = json[0].dingdanid;
 					var zongjiaqian = json[0].zongjiaqian;
+					alert(dingdanid);
 					$("#dingdanhao").html(dingdanid);
 					$("#zongjq").html(zongjiaqian);
 					

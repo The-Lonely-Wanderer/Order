@@ -66,7 +66,7 @@ public class OrderService{
 	//购物车付钱按钮事件功能
 	public int Gouwuche(String uuid, String z_id, int i, String d, String user_id, String tel) {
 		int hui_order = t_orderMapper.Gouwuche(uuid,z_id,i,d,user_id);
-//		System.out.println(uuid+"十一色");
+		System.out.println(uuid+"十一色uuid");
 		int hui_shopp =	shopp.getGouwuche(uuid,tel);
 //			System.out.println(hui_order+"啦啦啦啦");	
 //			System.out.println(hui_shopp+"啦更好啦啦");
