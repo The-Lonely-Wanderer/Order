@@ -148,5 +148,11 @@
 		select f.foodname,o.* from t_order o,t_food f
 		where o.id=f.id and o.user_id=#{id}
 	</select>
-
+ <!-- 购物车付钱按钮事件功能 -->
+  <insert id="Gouwuche">
+  	insert into t_order (id,prices,status,create_time,user_id)values (#{0},#{1},#{2},#{3},#{4})
+  </insert>
+  <select id="hui_gouwu" resultType="com.Indent.vo.T_order">
+  	select id,prices from t_order where id=#{user_id}
+  </select>
 </mapper>

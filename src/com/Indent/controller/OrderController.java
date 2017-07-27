@@ -315,6 +315,7 @@ public class OrderController {
 	public void Jiaoqian(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		
 		// 总价钱
 		String z_id = request.getParameter("z_id");
 		// 系统时间
@@ -329,6 +330,7 @@ public class OrderController {
 		// 去后端数据库
 
 		int god = m_order.Gouwuche(uuid, z_id, 0, d, user_id, tel);
+		System.out.println(god);
 		if (god != 0) {
 
 			t_order = m_order.hui_gouwu(uuid);
