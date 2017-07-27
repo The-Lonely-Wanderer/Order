@@ -34,21 +34,21 @@ $("document").ready(
 									+ "</p><p>价格:<font style='color:red;'>"
 									+ list[i].price
 									+ "</font></p>"
-									+ "<span style='display:block;cursor:pointer;width:73px ;height:25px;border: 1px inset red;background-color: #D8891E;' id='"
+									+ "<span style='display:block;cursor:pointer;width:100%;height:25px;margin-top:10px;margin-left:10px;' id='"
 									+ list[i].id
 									+ "' onclick=look('"
 									+ list[i].id
 									+ "');>加入购物车</span></div>"
 								}
 							
-							$("#shangpin").html("<div style='width:900px;height:500px;'>"
+							$("#shangpin").html("<div style='width:840px;height:470px;'>"
 								+ str
 								+ "<div align='center'><div style='color:red;width:380px;'>"
-								+ "<p class='shang' style='display:block;cursor:pointer;width:72px;height:23px;border:2px solid red;background-color:#E18D17;'"
+								+ "<p class='shang'"
 								+ " onclick=dianshang()>上一页</p><b id = 'fenye'><<共:"
 								+fen
 								+"页>></b>"
-								+ "<p class='xia' style='display:block;cursor:pointer;width:72px;height:23px;border:2px solid red;background-color:#E18D17;'"
+								+ "<p class='xia'"
 								+ " onclick=dianxia()>下一页</p>"
 								+ "</div></div></div>");
 							}

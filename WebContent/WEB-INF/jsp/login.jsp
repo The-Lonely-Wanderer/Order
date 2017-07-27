@@ -98,6 +98,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                       <input type="password" id="password" name="password" class="loginInput" placeholder="密码">
                       <span id="passwordspan">密码不能为空</span><br />
                   </li>
+                  <li>
+                      <span style="display: block">${message}</span><br />
+                  </li>
               </ul>
               <div class="passHandel clearfix">
                    <label for="checkbox"><input type="checkbox" id="forget_pw" name="_spring_security_remember_me" value="1" checked>记住我</label>

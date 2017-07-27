@@ -72,7 +72,7 @@ public interface T_userMapper {
 
 	boolean updatepassword(String tel, String oldpassword, String newpassword);
 
-	T_user testpassword(String tel, String password);
+	T_user testpassword(String id, String password);
 
 	T_user true_updatepassword(String tel, String newpassword);
 
@@ -90,6 +90,8 @@ public interface T_userMapper {
 	T_user testtel(String tel);
 
 	List<T_user> selectByName(String realname);
+
+	void updatetime(T_user t_user);
 
 
 }
