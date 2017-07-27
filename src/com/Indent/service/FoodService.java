@@ -4,11 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
 
 import com.Indent.dao.T_foodMapper;
 import com.Indent.vo.T_food;
@@ -80,13 +75,19 @@ public class FoodService {
 	}
 	//下一页
 	public List<T_food> getFenByName(String id, int begin, int end) {
+		System.out.println(id);
+		System.out.println(begin);
+		System.out.println(end);
 		
 		return t_foodMapper.getFenByName(id,begin,end);
 	}
+
 
 	public List<T_food> selectByName(String foodname) {
 		// TODO Auto-generated method stub
 		return t_foodMapper.selectByName(foodname);
 	}
 
+
 }
+

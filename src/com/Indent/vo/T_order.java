@@ -14,11 +14,11 @@ public class T_order {
 	 * @mbggenerated Mon Jul 17 11:41:22 CST 2017
 	 */
 	private String id;
-//	@Autowired
+	
 	private List<T_shopp> t_shopp;
-	private T_food t_food;
 	private T_user	t_user;
 	
+	private T_food t_food;
 	public T_user getT_user() {
 		return t_user;
 	}
@@ -26,7 +26,6 @@ public class T_order {
 	public void setT_user(T_user t_user) {
 		this.t_user = t_user;
 	}
-	
 	private String username;
 	
 	public String getusername() {
@@ -200,19 +199,6 @@ public class T_order {
 		this.userId = userId == null ? null : userId.trim();
 	}
 
-	public T_order(String id, Double prices, String status, Date createTime, String userId) {
-		super();
-		this.id = id;
-		this.prices = prices;
-		this.status = status;
-		this.createTime = createTime;
-		this.userId = userId;
-	}
-
-	public T_order() {
-		super();
-	}
-
 	public List<T_shopp> getT_shopp() {
 		return t_shopp;
 	}
@@ -309,13 +295,15 @@ public class T_order {
 				+ ", userId=" + userId + "]";
 	}
 
-	public T_order(String id, List<T_shopp> t_shopp, T_food t_food, T_user t_user, String username, Double prices,
+
+	public T_order(String id, List<T_shopp> t_shopp, T_user t_user, T_food t_food, String username, Double prices,
 			String status, Date createTime, String userId) {
 		super();
 		this.id = id;
 		this.t_shopp = t_shopp;
 		this.t_food = t_food;
 		this.t_user = t_user;
+		this.t_food = t_food;
 		this.username = username;
 		this.prices = prices;
 		this.status = status;
@@ -323,5 +311,8 @@ public class T_order {
 		this.userId = userId;
 	}
 
-	
+	public T_order() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 }

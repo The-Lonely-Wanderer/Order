@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Indent.dao.T_orderMapper;
+import com.Indent.dao.T_shoppMapper;
 import com.Indent.vo.T_order;
 @Service
 public class OrderService{
@@ -56,9 +57,27 @@ public class OrderService{
 		// TODO Auto-generated method stub
 		return t_orderMapper.selectmyorder(id);
 	}
-
 	public List<T_order> selectByAllByName(String username) {
 		// TODO Auto-generated method stub
 		return t_orderMapper.selectByAllByName(username);
+}
+	@Autowired
+	private T_shoppMapper shopp;
+	//购物车付钱按钮事件功能
+	public int Gouwuche(String uuid, String z_id, int i, String d, String user_id, String tel) {
+		int hui_order = t_orderMapper.Gouwuche(uuid,z_id,i,d,user_id);
+//		System.out.println(uuid+"十一色");
+		int hui_shopp =	shopp.getGouwuche(uuid,tel);
+//			System.out.println(hui_order+"啦啦啦啦");	
+//			System.out.println(hui_shopp+"啦更好啦啦");
+		if ( hui_order>0 || hui_shopp>0 ) {
+			return hui_order;
+		}
+		return 0;
+	}
+
+	public T_order hui_gouwu(String user_id) {
+//		System.out.println(user_id+"十二色");
+		return t_orderMapper.hui_gouwu(user_id);
 	}
 }

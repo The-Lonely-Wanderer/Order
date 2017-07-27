@@ -53,9 +53,13 @@ public interface T_orderMapper {
      */
     int updateByPrimaryKey(T_order record);
 
-	List<T_order> selectByAll();//更改成id查询
+	List<T_order> selectByAll();//更改成id查询s
 
 	List<T_order> selectmyorder(String id);
-
 	List<T_order> selectByAllByName(String username);
+	//购物车付钱按钮事件功能
+	int Gouwuche(String uuid, String z_id, int i, String d, String user_id);
+
+	T_order hui_gouwu(String user_id);
+	
 }

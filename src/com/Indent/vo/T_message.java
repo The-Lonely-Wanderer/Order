@@ -194,8 +194,6 @@ public void setT_food(T_food t_food) {
     }
 
 	
-	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -265,7 +263,8 @@ public void setT_food(T_food t_food) {
 
 	@Override
 	public String toString() {
-		return "T_message [username=" + username + ", foodname=" + foodname + ", id=" + id + ", content=" + content
+		return "T_message [username=" + username + ", foodname=" + foodname + ", id=" + id + ", content=" + content			
+
 				+ ", time=" + time + ", foodId=" + foodId + ", userId=" + userId + ", t_food=" + t_food + "]";
 	}
 

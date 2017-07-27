@@ -2,25 +2,29 @@ package com.Indent.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.stream.events.EndDocument;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Indent.service.FoodService;
+import com.Indent.service.OrderService;
 import com.Indent.service.ShoppService;
 import com.Indent.service.UserService;
+import com.Indent.until.Translate;
 import com.Indent.vo.T_admin;
 import com.Indent.vo.T_food;
+import com.Indent.vo.T_order;
 import com.Indent.vo.T_user;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -255,21 +259,99 @@ public class OrderController {
 	private int end = 0;// 到分的页数
 
 	@RequestMapping("/xiayiye.action")
-	public void XiaYiYer(HttpServletRequest request, HttpServletResponse response) {
+	public void XiaYiYer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		begin++;
 		// 页数的查询方法
+		String id = request.getParameter("i_id");
 		List<T_food> yeshu = footservice.getYeShuByName(id);
 		int fen = yeshu.size();
-		if (begin <= fen ) {
+		String message = null;
+		if (fen % 10 != 0) {
+			fen = fen / 10 + 1;
+		} else {
+			fen = fen / 10;
+		}
+		// System.out.println(fen+"++++++++++"+begin);
+		if (begin <= fen) {
 			end = begin * 10;
 			star = end - 10;
-			String id = request.getParameter("i_id");
 			List<T_food> ye = footservice.getFenByName(id, star, end);
-			System.out.println(ye);
-			
-		}else{
-			System.out.println("1111111111");
+			System.out.println("分页查询" + ye);
+
+			jsonObject.put("ye", ye);
+			jsonObject.put("fen", fen);
+			jsonArray.add(jsonObject);
+
+			PrintWriter out = response.getWriter();
+			out.println(jsonArray);
+			out.close();
+		} else {
+			message = "已经是末尾了";
 		}
+		jsonObject.put("message", message);
+		jsonArray.add(jsonObject);
+		PrintWriter out = response.getWriter();
+		out.println(jsonArray);
+		out.close();
+
+	}
+
+	@Resource
+	private Translate util;
+	@Resource
+	private Date dd;
+	@Resource
+	private OrderService m_order;
+	@Resource
+	private T_order t_order;
+	@Resource
+	private ModelAndView mod;
+	@Resource
+	private T_order t;
+
+	@RequestMapping("/jiaoqian.action")
+	public void Jiaoqian(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		// 总价钱
+		String z_id = request.getParameter("z_id");
+		// 系统时间
+		String d = util.time(dd);
+		// session 获取用户的user_id的值和手机号码
+		HttpSession session = request.getSession();
+		t_user = (T_user) session.getAttribute("t_user");
+		String user_id = t_user.getId();
+		String tel = t_user.getTel();
+		// uuid自动生成的
+		String uuid = util.getUUID();
+		// 去后端数据库
+
+		int god = m_order.Gouwuche(uuid, z_id, 0, d, user_id, tel);
+		if (god != 0) {
+
+			t_order = m_order.hui_gouwu(uuid);
+//			System.out.println(t_order);
+		}
+		String dingdanid = t_order.getId();
+		Double zongjiaqian = t_order.getPrices();
+//		System.out.println(dingdanid);
+//		System.out.println(zongjiaqian);
+		jsonObject.put("dingdanid", dingdanid);
+		jsonObject.put("zongjiaqian", zongjiaqian);
+		jsonArray.add(jsonObject);
+		PrintWriter out = response.getWriter();
+		out.println(jsonArray);
+		out.close();
+
+		// System.out.println("成功的接受到点击");
+		// System.out.println(d);
+		// System.out.println(user_id);
+		// System.out.println(uuid);
+		// System.out.println(god);
+
+	}
+
 		
 	}
-}
