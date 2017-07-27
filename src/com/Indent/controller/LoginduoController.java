@@ -530,6 +530,7 @@ public class LoginduoController {
 	// 订单状态修改
 	@RequestMapping("/changestatus.action")
 	public void changestatus(T_order t_order,HttpServletRequest request,HttpServletResponse response) {
+		System.out.println(t_order);
 		int flage=orderService.updateByPrimaryKeySelective(t_order);
 		jsonObject.put("flage",flage);
 		jsonArray.add(jsonObject);

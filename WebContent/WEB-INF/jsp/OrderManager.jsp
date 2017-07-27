@@ -92,7 +92,8 @@
 						class="c-text" placeholder="请输入关键字" id="query" name="username" />
 					<input type="button" class="c-but" value="查询" id="querybutton"
 						name="query" /> <input type="button" class="c-but" value="返回"
-						onclick="javascript:history.back(-1);" /> 共有0${size}条查询结果
+						onclick="javascript:history.back(-1);" /><input type="button" class="c-but" value="刷新"
+						onclick="javascript:window.location.reload();" />  共有0${size}条查询结果
 				</form>
 			</div>${message}
 			<div class="content-tab">
@@ -147,7 +148,7 @@
 	<script type="text/javascript">
 		$(".selec").change(function() {
 			var t = $(".selec option:selected").text();
-			var status = $(".selec option:selected").val();
+			var status = $(this).val();
 			var tex = $(this).attr("title");
 			$.ajax({
 				type : "post",
