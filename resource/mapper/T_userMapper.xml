@@ -237,7 +237,6 @@
   set username = #{username,jdbcType=VARCHAR},
    tel = #{tel,jdbcType=VARCHAR},
   address = #{address,jdbcType=VARCHAR},     
-      password = #{password,jdbcType=VARCHAR},
       realName = #{realname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR}      
     where id = #{id,jdbcType=VARCHAR}
@@ -255,6 +254,13 @@
    
    </update>
    
+   <update id="updatenewpassword" parameterType="com.Indent.vo.T_user">
+   update t_user set password = #{password}
+   where id=#{id} 
+   
+   
+   
+   </update>
    
   <select id="testpassword" parameterType="java.lang.String" resultMap="BaseResultMap">
   select * from t_user where id=#{0} and password=#{1}

@@ -36,8 +36,7 @@ body, html {
 	float: left;
 	margin-left: 15px;
 	margin-top: 10px;
-	box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.5);
-	cursor: pointer;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 	overflow: hidden;
 	transition: 0.2s;
 	border-radius: 5px;
@@ -79,6 +78,25 @@ body, html {
 	/* FF IE7*/
 	position: absolute;
 	/*IE6*/
+}
+.shang,.xia{
+display:block;
+color:#FFF;
+line-height:23px;
+cursor:pointer;
+width:72px;
+height:23px;
+background-color:#0089dc;
+margin-top:20px;
+transition:0.2s;
+}
+.shang:hover,.xia:hover{
+	color:0089dc;
+	background:none;
+}
+#fenye{
+margin-top:20px;
+color:#0089dc;
 }
 </style>
 </head>
@@ -184,117 +202,61 @@ body, html {
 					<ul class="preUl f-cb">
 						<li class="preLi fl">
 							<ul class="index-hot-ul f-cb f0">
-								<a href='/brand/21'>
+								<a href='#'>
 									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/ab46e142-2f17-4cee-be1d-e8cfc970ef47.png"
+										src="images/web/1dec1f1c-d96e-4a06-ab3c-2bbd22eb52ee.png"
 										alt="两岸咖啡" class="db" title="两岸咖啡"></li>
 								</a>
-								<a href='/brand/174'>
+								<a href='#'>
 									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/5ef9cb1a-a8be-43ea-baa4-152ea85e50e7.png"
+										src="images/web/3445437a-6c27-4c7d-80c4-fd18e81d2cb3.png"
 										alt="新白鹿" class="db" title="新白鹿"></li>
 								</a>
-								<a href='/brand/5448'>
+								<a href='#'>
 									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/d9e1701d-c3ad-4233-9efc-81a6d89b5981.png"
+										src="images/web/50de3e78-5c11-448b-b26c-2512a2c2641b.png"
 										alt="食之秘" class="db" title="食之秘"></li>
 								</a>
-								<a href='brand/5295'>
+								<a href='#'>
 									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/1dec1f1c-d96e-4a06-ab3c-2bbd22eb52ee.png"
+										src="images/web/52911e4d-73db-451e-b293-2aa7b8bcd0d6.png"
 										alt="蓝之莲" class="db" title="蓝之莲"></li>
 								</a>
-								<a href='brand/77'>
+								<a href='#'>
 									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/7aa1c13a-e07e-42db-8f51-9c356642d01a.png"
+										src="images/web/5ef9cb1a-a8be-43ea-baa4-152ea85e50e7.png"
 										alt="老娘舅" class="db" title="老娘舅"></li>
 								</a>
-								<a href='/brand/3727'>
+								<a href='#'>
 									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/52911e4d-73db-451e-b293-2aa7b8bcd0d6.png"
+										src="images/web/7aa1c13a-e07e-42db-8f51-9c356642d01a.png"
 										alt="永和大王" class="db" title="永和大王"></li>
 								</a>
-								<a href='brand/3'>
+								<a href='#'>
 									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/d8f198dc-059b-4964-9866-cce1fddc2aca.png"
+										src="images/web/a28fbb58-4d47-4f08-873d-fefc3e2ce886.png"
 										alt="真功夫" class="db" title="真功夫"></li>
 								</a>
-								<a href='brand/13'>
+								<a href='#'>
 									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/3445437a-6c27-4c7d-80c4-fd18e81d2cb3.png"
+										src="images/web/ab46e142-2f17-4cee-be1d-e8cfc970ef47.png"
 										alt="一茶一坐" class="db" title="一茶一坐"></li>
 								</a>
-								<a href='brand/445'>
+								<a href='#'>
 									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/50de3e78-5c11-448b-b26c-2512a2c2641b.png"
+										src="images/web/d8f198dc-059b-4964-9866-cce1fddc2aca.png"
 										alt="名人名家&名家厨房" class="db" title="名人名家&名家厨房"></li>
 								</a>
-								<a href='brand/61'>
+								<a href='#'>
 									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/a28fbb58-4d47-4f08-873d-fefc3e2ce886.png"
+										src="images/web/d9e1701d-c3ad-4233-9efc-81a6d89b5981.png"
 										alt="汉堡王" class="db" title="汉堡王"></li>
-								</a>
-							</ul>
-						</li>
-						<li class="preLi fl">
-							<ul class="index-hot-ul f-cb f0">
-								<a href='brand/745'>
-									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/53ad9470-7266-4816-8616-e8f92854e744.png"
-										alt="必胜客" class="db" title="必胜客"></li>
-								</a>
-								<a href='brand/3208'>
-									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/1526d200-9d63-427e-8d15-3b1d7772fa87.png"
-										alt="味千拉面" class="db" title="味千拉面"></li>
-								</a>
-								<a href='brand/3018'>
-									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/c8854f09-1c4f-4936-9df6-f89b3b67d254.png"
-										alt="许留山" class="db" title="许留山"></li>
-								</a>
-								<a href='brand/173'>
-									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/ee322603-8379-4d87-940e-8259b6be86b3.png"
-										alt="知味观" class="db" title="知味观"></li>
-								</a>
-								<a href='brand/2745'>
-									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/d6f895ee-88a3-4adb-b502-c1731d39f0df.png"
-										alt="张生记" class="db" title="张生记"></li>
-								</a>
-								<a href='brand/380'>
-									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/bf40445e-4d5e-42b3-ae2b-d8e673e0cb0a.png"
-										alt="五芳斋" class="db" title="五芳斋"></li>
-								</a>
-								<a href='brand/161'>
-									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/20b36434-9e0c-4753-baac-4f60a5f6cbf1.png"
-										alt="杭州新开元大酒店" class="db" title="杭州新开元大酒店"></li>
-								</a>
-								<a href='brand/5162'>
-									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/6cee5160-25e1-4c9c-8dd3-5fa4589420b8.png"
-										alt="童年小筑" class="db" title="童年小筑"></li>
-								</a>
-								<a href='brand/3192'>
-									<li><img
-										src="http://res.dianwoba.com/image//liansuorecommend/27486d42-9356-40af-be01-62db6ef84053.png"
-										alt="咬不得高祖生煎" class="db" title="咬不得高祖生煎"></li>
-								</a>
-								<a href='brand/3860'>
-									<li class="vertical"><img
-										src="http://res.dianwoba.com/image//liansuorecommend/32800c40-b5e5-4f43-acf1-caa5bbab4c71.png"
-										alt="蘭芳園" class="db" title="蘭芳園"></li>
 								</a>
 							</ul>
 						</li>
 					</ul>
 				</div>
 			</div>
-			<div class="say-row-index row-left-index poi abs" id="pre"></div>
-			<div class="say-row-index row-right-index poi abs" id="next"></div>
 		</div>
 	</div>
 
@@ -440,7 +402,7 @@ body, html {
 		logo_type="realname" href="http://www.anquan.org"
 		style="display: none"></a>
 	<!-- js -->
-	<script src="js/3.0/vendor/layer/sea.js"></script>
+<!-- 	<script src="js/3.0/vendor/layer/sea.js"></script> -->
 	<!-- 引入seajs -->
 	<script>
 		seajs

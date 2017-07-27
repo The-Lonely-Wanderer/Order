@@ -25,37 +25,11 @@
 </head>
 
 <body>
-	<!-- 头部 -->
-
-	<!-- 方便开发这快速定位到当前页面对应的jsp文件, 通过view source -->
-	<!--/WEB-INF/view/auth/register.jsp-->
-
-	<!-- Google Tag Manager -->
-	<noscript>
-		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-MQLLZQ"
-			height="0" width="0" style="display: none; visibility: hidden"></iframe>
-	</noscript>
-	<script>
-		(function(w, d, s, l, i) {
-			w[l] = w[l] || [];
-			w[l].push({
-				'gtm.start' : new Date().getTime(),
-				event : 'gtm.js'
-			});
-			var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
-					+ l
-					: '';
-			j.async = true;
-			j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-			f.parentNode.insertBefore(j, f);
-		})(window, document, 'script', 'dataLayer', 'GTM-MQLLZQ');
-	</script>
-	<!-- End Google Tag Manager -->
 
 	<!--头部模块-->
 	<div class="d_head d_head_40 d_head_40_login">
 		<div class="d_headBox clearfix">
-			<a href="/" title="点我吧外卖网" class="logo"></a>
+			<a href="index.jsp" title="点我吧外卖网" class="logo"></a>
 
 
 			<!--右侧未登录状态-->

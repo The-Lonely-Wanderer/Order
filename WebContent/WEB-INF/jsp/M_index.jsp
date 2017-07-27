@@ -36,8 +36,7 @@ body, html {
 	float: left;
 	margin-left: 15px;
 	margin-top: 10px;
-	box-shadow: 0px 0px 1px 2px rgba(0, 0, 0, 0.5);
-	cursor: pointer;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 	overflow: hidden;
 	transition: 0.2s;
 	border-radius: 5px;
@@ -79,6 +78,25 @@ body, html {
 	/* FF IE7*/
 	position: absolute;
 	/*IE6*/
+}
+.shang,.xia{
+display:block;
+color:#FFF;
+line-height:23px;
+cursor:pointer;
+width:72px;
+height:23px;
+background-color:#0089dc;
+margin-top:20px;
+transition:0.2s;
+}
+.shang:hover,.xia:hover{
+	color:0089dc;
+	background:none;
+}
+#fenye{
+margin-top:20px;
+color:#0089dc;
 }
 </style>
 </head>

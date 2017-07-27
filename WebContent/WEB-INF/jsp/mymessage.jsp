@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="css/4.0/ucenter.css" />
 <link rel="stylesheet" href="css/3.0/zxx.lib.min.css" />
 <style type="text/css">
+table tr,td{width:25%;height:30px;}
+td{text-align: center;}
 </style>
 </head>
 
@@ -104,31 +106,30 @@
 							</b>
 						</p>
 						<div class='u-baseInfo'>
-							<h2 class='moudleH2'>我的订单</h2>
+							<h2 class='moudleH2'>我的点评</h2>
 							<div class='u-base-msn'>
 								<!--数据表格-->
 								<a name="order-list" id="order-list"></a>
 
 								<table class="u-order-dl">
 									<tr class="f-cb f14">
-										<th class="fl u-order-th-shop tc">菜品</th>
-										<th class="fl w140 tc">时间</th>
-										<th class="fl w140 tc rel">评价</th>
-										<th class="fl w140 tc">操作</th>
+										<th>菜品</th>
+										<th>时间</th>
+										<th>评价</th>
+										<th>操作</th>
 									</tr>
 										<c:forEach items="${mess}" var="mess">									
 										<tr>						
-											<td class="fl u-order-th-shop tc">${mess.foodname}</td>
+											<td>${mess.foodname}</td>
 											
-											<td class="fl w140 tc"><fmt:formatDate value="${mess.time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-											<td class="fl w140 tc rel" readonly="readonly" id="content">${mess.content}</td>
-											<td class="fl w140 tc"><input type="button"value="评价"id="contentbutton"/></td> 
+											<td><fmt:formatDate value="${mess.time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+											<td id="content">${mess.content}</td>
+											<td><input type="button"value="评价"id="contentbutton"/></td> 
 										</tr>										
 									</c:forEach>
 									
-								</table>
-
-							</div>
+								</table>									
+							</div>							
 						</div>
 					</div>
 				</div>
@@ -233,13 +234,17 @@
 </body>
 
 <script type="text/javascript">
-$("#uesName").hover(function(){
-	$("#personalListList").css("display","block")
+$("#uesName").hover(function() {
+	$("#personalListList").stop(true, true).show();
+});
+$("#uesName").mouseout(function() {
+	$("#personalListList").stop(true, true).hide(5000);
+
 });
 
 $("#contentbutton").click(function(){
 	document.getElementById("content").style.backgroundColor = "red";
-	document.getElementById("content").readOnly = false;
+	
 	
 })
 

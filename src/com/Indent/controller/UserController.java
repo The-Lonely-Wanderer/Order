@@ -182,8 +182,6 @@ public class UserController {
 		t_user.setSex(request.getParameter("sex"));
 		t_user.setId(request.getParameter("id"));
 		t_user.setAddress(request.getParameter("address"));
-		String password = request.getParameter("password");
-		t_user.setPassword(tr.getMD5(password));
 		if ((t_user.getUsername()) == null || "".equals(t_user.getUsername())) {
 		} else {
 			Boolean b = us.updateuser(t_user);
@@ -201,7 +199,24 @@ public class UserController {
 		}
 		return "UserBiao";
 	}
-
+	//修改密码
+	@RequestMapping("/updatenewpassword.action")
+	public String updatenewpassword(HttpServletRequest request, HttpServletResponse response, Model model) throws UnsupportedEncodingException{
+		HttpSession session = request.getSession();
+		t_user = (T_user) session.getAttribute("t_user");
+		t_user.setPassword(tr.getMD5(request.getParameter("pwdinput")));
+		Boolean b=us.updatenewpassword(t_user);
+		System.out.println(b);
+		if(b){
+			String message="修改密码成功！";
+			model.addAttribute("message", message);
+			return "UserBiao";
+		}else{
+			String message="修改密码失败！";
+			model.addAttribute("message", message);
+			return "UserBiao";
+		}	
+	}
 	// 异步刷新用户名
 	@RequestMapping("/testusername.action")
 	public void testusername(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
@@ -302,7 +317,9 @@ public class UserController {
 		HttpSession session = request.getSession();
 		t_user = (T_user) session.getAttribute("t_user");
 		String id = t_user.getId();
+		System.out.println(id);
 		List<T_order> order = orderService.selectmyorder(id);
+		System.out.println(order);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("myorder");
 		modelAndView.addObject("order", order);

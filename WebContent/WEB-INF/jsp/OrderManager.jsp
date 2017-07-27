@@ -68,8 +68,8 @@
 					<div class="order">
 						<p class="orderid">
 							<span style="margin-left: 5px;">訂餐用戶:</span>
-							&nbsp;&nbsp;${t_orderlists.username} <span
-								style="float: right; margin-right: 10px"> <c:choose>
+							&nbsp;&nbsp;${t_orderlists.username}
+							 <span style="float: right; margin-right: 10px"> <c:choose>
 									<c:when test="${t_orderlists.status == 1}">正在处理</c:when>
 									<c:when test="${t_orderlists.status == 0}">待处理</c:when>
 									<c:when test="${t_orderlists.status == 2}">配送中</c:when>
@@ -81,9 +81,8 @@
 							<p class="orderm">
 								<c:forEach var="foodlist" items="${t_orderlists.t_shopp}">
 									<p>
-										<span style="width:100px;height:20px;">${foodlist.foodname}</span><span style="width:100px;height:20px;float:left;border-left:1px solid rgba(0,0,0,0.2);">${foodlist.price}</span>
+										<span>${foodlist.foodname}</span><span style="width:100px;height:20px;margin-left:50px;">${foodlist.price}</span>
 									</p>
-<!-- 																订单详细内容 部分 -->
 								</c:forEach>
 							</p>
 							<p>

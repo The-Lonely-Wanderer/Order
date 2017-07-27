@@ -124,14 +124,16 @@
 											<li><label>昵称：</label> <input value="${t_user.username}"
 												type="text" maxlength="32" id="username" name="username"
 												readonly="readonly" /></li>
-											<li><label>真实姓名</label> <input
+											<li><label>姓名</label> <input
 												value="${t_user.realname}" type="text" id="realname"
 												name="realname" readonly="readonly" /></li>
 											<li><label>性别：</label> <input value="${t_user.sex}"
 												type="text" id="sex" name="sex" readonly="readonly" /></li>
 											<li><label>密码：</label> <input value="${t_user.password}"
 												type="password" id="password" name="password"
-												readonly="readonly" /></li>
+												readonly="readonly" />
+												<span id="changepassword">修改密码</span>
+												</li>
 												<li><span>${message}</span></li>
 											<li><input type="button" value="修改信息" id="updatebutton" />
 											<input type="button" value="提交" id="updatebutton1"
@@ -141,7 +143,7 @@
 								</div>
 								</form>
 								<!--修改密码弹出窗口-->
-								<form action="updatepassword.action" method="post"
+								<form action="updatenewpassword.action" method="post"
 									id="updatepasswordform"
 									style="display: none; border: 1px solid red;">
 									<div class="u-base-bindPhone" id="updatepwd">
@@ -292,19 +294,18 @@
 		document.getElementById("tel").style.backgroundColor = "red";
 		document.getElementById("username").style.backgroundColor = "red";
 		document.getElementById("sex").style.backgroundColor = "red";
-		document.getElementById("password").style.backgroundColor = "red";
 		document.getElementById("realname").style.backgroundColor = "red";
 		document.getElementById("tel").readOnly = false;
 		document.getElementById("username").readOnly = false;
 		document.getElementById("sex").readOnly = false;
 		$("#updatebutton1").css("display", "block")	
-		$("#updatebutton").css("display", "none")
-		$("#password").click(function() {
-			$("#updatepasswordform").css("display", "block")
-		});
+		$("#updatebutton").css("display", "none")		
 		document.getElementById("realname").readOnly = false;
 	});
-
+	$("#changepassword").click(function() {
+		document.getElementById("password").style.backgroundColor = "red";
+		$("#updatepasswordform").css("display", "block")
+	});
 	$("#oldpwd").blur(function() {
 		$.ajax({
 			// 发送请求的方式 get post
@@ -346,18 +347,24 @@
 					alert("两次密码不一致")
 				} else {
 
-					 var value=document.getElementById("pwdinput").value;
-					    document.getElementById("password").value=value;					
-					$("#updatepasswordform").css("display", "none")									
+					 /* var value=document.getElementById("pwdinput").value;
+					    document.getElementById("password").value=value; */
+					    $("#updatepasswordform").submit();
+					$("#updatepasswordform").css("display", "none")			
 				}
 			});
 	$("#updatebutton1").click(function() {
 		$("#updateuserform").submit();
 
 	});
-	$("#uesName").hover(function(){
-		$("#personalListList").css("display","block")
-	})
+	
+	$("#uesName").hover(function() {
+		$("#personalListList").stop(true, true).show();
+	});
+	$("#uesName").mouseout(function() {
+		$("#personalListList").stop(true, true).hide(5000);
+
+	});
 </script>
 
 

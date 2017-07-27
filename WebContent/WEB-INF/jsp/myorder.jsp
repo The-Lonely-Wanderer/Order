@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -23,7 +23,6 @@
 <link rel="stylesheet" href="css/4.0/ucenter.css" />
 <link rel="stylesheet" href="css/3.0/zxx.lib.min.css" />
 <style type="text/css">
-
 </style>
 </head>
 
@@ -45,8 +44,8 @@
 			<!--右侧已登录状态-->
 			<div class="inLogin clearfix">
 				<div class="uesNameBox">
-					<a href="myorder.action" title="" class="uesName"
-						id="uesName">${t_user.username}</a> <span class="triangle_icon"></span>
+					<a href="myorder.action" title="" class="uesName" id="uesName">${t_user.username}</a>
+					<span class="triangle_icon"></span>
 
 					<ul class="useList" style="display: none" id="personalListList">
 						<li><a href="myorder.action" title="">我的订单</a></li>
@@ -55,10 +54,11 @@
 						<li><a href="loginoff.action" title="">退出</a></li>
 					</ul>
 				</div>
-				<a href="myorder.action" onClick="_gaq.push(['_trackEvent', 'dwb','lookorder']);"  class="dib clearfix head-order-view">
-		                <span class="eye_icon vm"></span>
-		                <span class="vm f14">订单监控</span>
-		            </a>
+				<a href="myorder.action"
+					onClick="_gaq.push(['_trackEvent', 'dwb','lookorder']);"
+					class="dib clearfix head-order-view"> <span class="eye_icon vm"></span>
+					<span class="vm f14">订单监控</span>
+				</a>
 			</div>
 			<!--noLogin end 已登录-->
 
@@ -101,7 +101,8 @@
 					<div class="u-index-userInfo" id="user-panel">
 						<p class="u-index-loginInfo clearfix">
 							<b style="width: 500px;"><i class="u-index-uname">${t_user.username}</i>
-							</b> <b style="float: right; width: 230px;">上一次登录时间： <fmt:formatDate value="${t_user.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+							</b> <b style="float: right; width: 230px;">上一次登录时间： <fmt:formatDate
+									value="${t_user.updateTime}" pattern="yyyy-MM-dd HH:mm:ss" />
 							</b>
 						</p>
 						<div class='u-baseInfo'>
@@ -117,14 +118,15 @@
 										<th class="fl w140 tc rel">下单时间</th>
 										<th class="fl w140 tc">订单状态</th>
 									</tr>
-									<c:forEach items="${order}" var="order">									
-										<tr>						
-											<td class="fl u-order-th-shop tc">${order.getT_food().getFoodname()}</td>
-											
-											<td class="fl w140 tc">${order.getPrices()}</td>
-											<td class="fl w140 tc rel">
-											<fmt:formatDate value="${order.getCreateTime()}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-											<td class="fl w140 tc">${order.getStatus()}</td> 
+									<c:forEach items="${order}" var="order">
+										<tr>
+											<td class="fl u-order-th-shop tc">${order.getFoodname()}</td>
+
+											<td class="fl w140 tc">${order.price}</td>
+											<td class="fl w140 tc rel"><fmt:formatDate
+													value="${order.getCreateTime()}"
+													pattern="yyyy-MM-dd HH:mm:ss" /></td>
+											<td class="fl w140 tc">${order.getStatus()}</td>
 										</tr>
 									</c:forEach>
 								</table>
@@ -232,11 +234,14 @@
 					</div>
 				</div>
 </body>
- <script type="text/javascript">
- $("#uesName").mouseenter(function(){
-	$("#personalListList").css("display","block")
-}) ;
+<script type="text/javascript">
+	$("#uesName").hover(function() {
+		$("#personalListList").stop(true, true).show();
+	});
+	$("#uesName").mouseout(function() {
+		$("#personalListList").stop(true, true).hide(5000);
 
+	});
 </script>
 
 </html>

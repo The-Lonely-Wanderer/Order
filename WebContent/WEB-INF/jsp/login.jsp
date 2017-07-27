@@ -32,39 +32,25 @@ position: relative;
 top:1px;
 left:380px;
 }
+
+.white_content label{
+width:60px;
+float:left ;
+text-align:left ;
+
+}
+
+.white_content .btnOrg40{
+margin-left: 180px
+
+}
 </style>
 </head>
 <body>
-	<!-- 头部 -->
-
-	<!-- Google Tag Manager -->
-	<noscript>
-		<iframe src="//www.googletagmanager.com/ns.html?id=GTM-MQLLZQ"
-			height="0" width="0" style="display: none; visibility: hidden"></iframe>
-	</noscript>
-	<script>
-		(function(w, d, s, l, i) {
-			w[l] = w[l] || [];
-			w[l].push({
-				'gtm.start' : new Date().getTime(),
-				event : 'gtm.js'
-			});
-			var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l='
-					+ l
-					: '';
-			j.async = true;
-			j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-			f.parentNode.insertBefore(j, f);
-		})(window, document, 'script', 'dataLayer', 'GTM-MQLLZQ');
-	</script>
-	<!-- End Google Tag Manager -->
-
-
-
 	<!--头部模块-->
 	<div class="d_head d_head_40 d_head_40_login">
 		<div class="d_headBox clearfix">
-			<a href="/" title="点我吧外卖网" class="logo"></a>
+			<a href="index.jsp" title="点我吧外卖网" class="logo"></a>
 			<!--logo end-->
 			<!--右侧未登录状态-->
 			<div class="noLogin clearfix">
@@ -82,44 +68,6 @@ left:380px;
 	</div>
 	<!--d_head end-->
 
-	<script>
-		if ('' != 'null' && '' != '') {
-			var isLogin = true;
-		} else {
-			var isLogin = false;
-		}
-
-		var cur_city = '1' || 1; //没有取到值就默认为杭州的ID
-	</script>
-
-	<script type="text/javascript">
-		var browser = {
-			versions : function() {
-				var u = navigator.userAgent, app = navigator.appVersion;
-				return { //移动终端浏览器版本信息
-					trident : u.indexOf('Trident') > -1, //IE内核
-					presto : u.indexOf('Presto') > -1, //opera内核
-					webKit : u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-					gecko : u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-					mobile : !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-					ios : !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-					android : u.indexOf('Android') > -1
-							|| u.indexOf('Linux') > -1, //android终端或uc浏览器
-					iPhone : u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
-					iPad : u.indexOf('iPad') > -1, //是否iPad
-					webApp : u.indexOf('Safari') == -1
-				//是否web应该程序，没有头部与底部
-				};
-			}(),
-			language : (navigator.browserLanguage || navigator.language)
-					.toLowerCase()
-		}
-
-		if (browser.versions.mobile && !browser.versions.iPad) {
-			window.location.href = 'http://m.dianwoba.com/auth/login.do';
-		}
-	</script>
-
 	<div class="d_loginBox">
 		<div class="loginBox clearfix rel">
 			<div class="login-left abs"></div>
@@ -133,7 +81,7 @@ left:380px;
 						<li><input type="password" id="password" name="password"
 							class="loginInput" placeholder="密码"> <span
 							id="passwordspan">密码不能为空</span><br />
-							<span style="display: block">${message}</span><br /></li>						 
+							<span style="display: block" id="messagespan">${message}</span><br /></li>						 
 					</ul>
 					<div class="passHandel clearfix">
 						<label for="checkbox"><input type="checkbox"
@@ -149,7 +97,7 @@ left:380px;
 				</form>
 
 				<div id="light" class="white_content">
-					<a href="javascript:void(0)" id="closebutton"class="closebutton2">X</a>
+					<a href="javascript:void(0)" id="closebutton"class="closebutton2">X</a>					
 					<form action="findpassword.action" method="post" id="login1form">
 						<label>手机号</label><input type="text" name="tel" id="tel" placeholder="请输手机号"
 							class="loginInput" /> <br /> 
@@ -164,12 +112,13 @@ left:380px;
 							placeholder="请再次输入密码" /><br /> 
 						<input type="button" value="确定" id="login"class="btnOrg40" /> 
 					</form>
+					
 				</div>
 				<h3 class="f14 tc g6">第三方账号登录</h3>
 				<div class="login-other-box f0 tc">
-					<a href="/auth/login!sinaAuth.do" title="微博登录" class="dib vm"></a>
-					<a href="/auth/login!weixinAuth.do" title="微信登录" class="dib vm wx"></a>
-					<a href="/auth/login!qqAuth.do" title="QQ登录" class="dib vm qq"></a>
+					<a href="#" title="微博登录" class="dib vm"></a>
+					<a href="#" title="微信登录" class="dib vm wx"></a>
+					<a href="#" title="QQ登录" class="dib vm qq"></a>
 				</div>
 			</div>
 		</div>
@@ -181,6 +130,10 @@ left:380px;
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<!--底部-->
 	<script type="text/javascript">
+	$("#username").click(function() {
+		$("#messagespan").hide();
+	
+	});
 		$("#username").blur(function() {
 			if ($("#username").val().length == 0) {
 				$("#usernamespan").show();
