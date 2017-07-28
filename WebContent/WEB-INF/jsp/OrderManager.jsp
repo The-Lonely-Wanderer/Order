@@ -108,6 +108,7 @@
 										<c:when test="${t_orderlists.status == 1}">正在处理</c:when>
 										<c:when test="${t_orderlists.status == 0}">待处理</c:when>
 										<c:when test="${t_orderlists.status == 2}">配送中</c:when>
+										<c:when test="${t_orderlists.status == 3}">已配送</c:when>
 									</c:choose></span>
 							</p>
 							<div class="banner">
@@ -128,11 +129,12 @@
 								</p>
 								<p class="sp">
 									<span>訂單號:</span>&nbsp;&nbsp;${t_orderlists.id}
-									<c:if test="${t_orderlists.status <2}">
+									<c:if test="${t_orderlists.status <3}">
 										<select id="s" class="selec" title="${t_orderlists.id}">
 											<option value="0">待处理</option>
 											<option value="1">正在处理</option>
 											<option value="2">配送中</option>
+											<option value="2">已配送</option>
 										</select>
 									</c:if>
 								</p>
